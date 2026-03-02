@@ -1,0 +1,96 @@
+---
+description: Padrões de frontend — cores centralizadas e componentes reutilizáveis
+globs: "**/*.tsx, **/*.ts"
+alwaysApply: false
+---
+
+# Padrões de Frontend — Billy Pet
+
+## Cores
+
+Todas as cores vêm de `constants/Colors.ts`. **Nunca** usar valores hex ou rgba diretos no código.
+
+### Por que centralizar? — Editar só o Colors.ts
+
+O `Colors.ts` é a **única fonte de verdade** para cores. Componentes usam o **nome semântico** (ex: `card`, `secondary`), nunca o hex.
+
+**Para mudar uma cor no app inteiro**: edite apenas `constants/Colors.ts`. Não abra os componentes.
+
+**Exemplo**: cards de categoria usam marrom. Para trocar a cor de todos os cards:
+- `card: brown` → `card: '#outraCor'` em Colors.ts
+- Todos os componentes que usam `useThemeColor({}, 'card')` ou `Colors[theme].card` atualizam automaticamente
+
+**Regra no componente**: sempre referenciar pelo nome (`'card'`, `'secondary'`, etc.). Nunca colocar hex no código do componente.
+
+### Paleta principal do app
+
+| Cor | Hex | Uso |
+|-----|-----|-----|
+| Verde | `#497700` | Cor secundária — tabs, botões de destaque, ícones selecionados |
+| Marrom | `#C25A14` | Cards |
+| Branco | `#FFF` | Fundo (modo light) |
+| Preto | `#2E2E2C` | Fundo (modo dark) e texto (modo light) |
+| Texto light | `#2E2E2C` | Texto no modo light |
+| Texto dark | `#FFF` | Texto no modo dark |
+
+### ❌ Evitar
+
+```tsx
+// Cores hardcoded — obriga a abrir cada componente para mudar a cor
+<View style={{ backgroundColor: '#C25A14' }} />  // marrom no componente
+<Text style={{ color: '#fff' }} />
+<View lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+```
+
+### ✅ Usar
+
+```tsx
+import Colors from '@/constants/Colors';
+import { useThemeColor } from '@/components/Themed';
+import { useColorScheme } from '@/components/useColorScheme';
+
+// Sempre pelo nome — para mudar a cor, edite só Colors.ts
+const backgroundColor = useThemeColor({}, 'background');
+const color = useThemeColor({}, 'text');
+const cardBg = useThemeColor({}, 'card');  // cards de categoria, produto, etc.
+
+const theme = useColorScheme();
+const tint = Colors[theme].tint;
+```
+
+### Cores disponíveis em Colors.ts
+
+- `text` — texto (preto no light, branco no dark)
+- `background` — fundo (branco no light, preto no dark)
+- `tint` / `secondary` — verde (#497700), tabs e destaques
+- `card` — marrom (#C25A14), fundo de cards
+- `tabIconDefault` / `tabIconSelected` — ícones da tab bar
+
+### Novas cores
+
+1. Adicionar em `constants/Colors.ts` em `light` e `dark`
+2. Usar o nome semântico (ex: `textLight`, `border`, `primary`)
+3. Referenciar pelo nome nos componentes
+
+---
+
+## Componentes Reutilizáveis
+
+Antes de criar um componente novo, **verificar** se um existente pode ser reutilizado ou estendido.
+
+### Checklist antes de criar
+
+- [ ] Já existe um componente parecido em `components/`?
+- [ ] Dá para receber props para cobrir o novo caso?
+- [ ] Um componente genérico resolve (ex: `Card` com `variant`)?
+
+### ❌ Evitar
+
+- Dois componentes quase iguais (ex: `ProductCard` e `CategoryCard` com mesma estrutura)
+- Duplicar lógica que poderia vir de um único componente
+
+### ✅ Preferir
+
+- Um componente com props variáveis
+- Composição (componentes menores dentro de um maior)
+- Props opcionais para variar comportamento
