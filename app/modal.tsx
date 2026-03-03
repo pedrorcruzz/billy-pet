@@ -1,13 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet } from 'react-native';
 
-import { Text, View } from '@/components/Themed';
+import { Text, View, useThemeColor } from '@/components/Themed';
 
 export default function ModalScreen() {
+  const separatorColor = useThemeColor('separator');
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Modal</Text>
-      <View style={styles.separator} backgroundColor="#eee" />
+      <View style={[styles.separator, { backgroundColor: separatorColor }]} />
 
       <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
     </View>

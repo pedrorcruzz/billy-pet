@@ -1,12 +1,14 @@
 import { StyleSheet } from "react-native";
 
-import { Text, View } from "@/components/Themed";
+import { Text, View, useThemeColor } from "@/components/Themed";
 
 export default function TabOneScreen() {
+  const separatorColor = useThemeColor("separator");
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tela Inicio</Text>
-      <View style={styles.separator} backgroundColor="#eee" />
+      <View style={[styles.separator, { backgroundColor: separatorColor }]} />
     </View>
   );
 }

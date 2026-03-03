@@ -25,7 +25,7 @@ const tabBarStyle = {
   height: TAB_BAR_HEIGHT,
   borderRadius: TAB_BAR_HEIGHT / 2,
   backgroundColor: Colors.light.background,
-  shadowColor: "#000",
+  shadowColor: Colors.light.shadow,
   shadowOffset: { width: 0, height: 4 },
   shadowOpacity: 0.15,
   shadowRadius: 12,
