@@ -36,7 +36,7 @@ Se sim → reutilizar ou estender. Se não → seguir para o passo 2.
 
 ### Se precisar de nova cor
 
-1. Adicionar em `constants/Colors.ts` em `light` e `dark`
+1. Adicionar em `constants/Colors.ts` em `light`
 2. Nome semântico (ex: `border`, `primary`, `textLight`)
 
 ### Como usar no componente
@@ -44,22 +44,20 @@ Se sim → reutilizar ou estender. Se não → seguir para o passo 2.
 ```tsx
 import Colors from '@/constants/Colors';
 import { useThemeColor } from '@/components/Themed';
-import { useColorScheme } from '@/components/useColorScheme';
 
-// Opção A: useThemeColor (recomendado — respeita tema)
-const color = useThemeColor({}, 'text');
-const bg = useThemeColor({}, 'background');
+// Opção A: useThemeColor (recomendado)
+const color = useThemeColor('text');
+const bg = useThemeColor('background');
 
 // Opção B: Colors direto
-const theme = useColorScheme();
-const tint = Colors[theme].tint;
+const tint = Colors.light.tint;
 ```
 
 ### Usar componentes Themed quando possível
 
 ```tsx
 import { Text, View } from '@/components/Themed';
-// Já aplicam text/background do tema automaticamente
+// Já aplicam text/background do design system automaticamente
 ```
 
 ---

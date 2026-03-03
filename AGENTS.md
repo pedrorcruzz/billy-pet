@@ -33,7 +33,7 @@ app/                    # Rotas (Expo Router)
   (tabs)/               # Navegação por abas
   _layout.tsx           # Layout raiz
 components/             # Componentes reutilizáveis
-constants/              # Cores, temas, constantes
+constants/              # Cores e constantes
 ```
 
 ---
@@ -48,7 +48,7 @@ constants/              # Cores, temas, constantes
 
 ### Estilização
 - Usar `StyleSheet` do React Native
-- Centralizar cores e temas em `constants/Colors.ts`
+- Centralizar cores em `constants/Colors.ts`
 - Evitar estilos inline; preferir objetos de estilo nomeados
 
 ### Rotas (Expo Router)

@@ -34,8 +34,11 @@ Listar todos os arquivos em `.cursor/commands/` com breve resumo:
 | Arquivo | Resumo |
 |---------|--------|
 | `components.md` | Cria ou modifica componentes React Native seguindo o design system |
+| `doc-design-system.md` | Gera documentação completa do design system Billy Pet via design-system-documenter |
 | `git-commit.md` | Cria commits no padrão Conventional Commits via github-specialist |
-| `create-doc-design-system.md` | Gera documentação completa do design system Billy Pet |
+| `readme.md` | Cria ou atualiza o README do projeto via github-specialist |
+| `screen-workflow.md` | Cria, edita ou remove telas via frontend-specialist |
+| `test.md` | Cria ou debuga testes com Jest e Expo via testing-specialist |
 
 **Importante**: Ler o conteúdo de cada arquivo em `.cursor/commands/` para extrair o resumo correto. O agente deve listar todos os comandos existentes na pasta.
 

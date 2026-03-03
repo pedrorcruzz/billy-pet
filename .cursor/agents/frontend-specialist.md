@@ -47,18 +47,16 @@ Se sim → reutilizar ou estender. Se não → seguir para o passo 2.
 ```tsx
 import Colors from '@/constants/Colors';
 import { useThemeColor } from '@/components/Themed';
-import { useColorScheme } from '@/components/useColorScheme';
 
 // Opção A: useThemeColor (recomendado)
-const color = useThemeColor({}, 'text');
-const bg = useThemeColor({}, 'background');
+const color = useThemeColor('text');
+const bg = useThemeColor('background');
 
 // Opção B: Colors direto
-const theme = useColorScheme();
-const tint = Colors[theme].tint;
+const tint = Colors.light.tint;
 ```
 
-Usar `Text` e `View` de `@/components/Themed` quando possível — já aplicam text/background do tema.
+Usar `Text` e `View` de `@/components/Themed` quando possível — já aplicam text/background do design system.
 
 **Regra**: cores dinâmicas vêm de `useThemeColor`/`Colors` e são aplicadas no JSX. StyleSheet não aceita hooks — nunca colocar hex em StyleSheet.
 

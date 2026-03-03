@@ -1,45 +1,30 @@
 /**
- * Learn more about Light and Dark modes:
- * https://docs.expo.io/guides/color-schemes/
+ * Componentes com cores do design system — Billy Pet
  */
 import { Text as DefaultText, View as DefaultView } from 'react-native';
 
-import { useColorScheme } from './useColorScheme';
-
 import Colors from '@/constants/Colors';
 
-type ThemeProps = {
-  lightColor?: string;
-  darkColor?: string;
-};
-
-export type TextProps = ThemeProps & DefaultText['props'];
-export type ViewProps = ThemeProps & DefaultView['props'];
+export type TextProps = DefaultText['props'] & { color?: string };
+export type ViewProps = DefaultView['props'] & { backgroundColor?: string };
 
 export function useThemeColor(
-  props: { light?: string; dark?: string },
-  colorName: keyof typeof Colors.light & keyof typeof Colors.dark
-) {
-  const theme = useColorScheme();
-  const colorFromProps = props[theme];
-
-  if (colorFromProps) {
-    return colorFromProps;
-  } else {
-    return Colors[theme][colorName];
-  }
+  colorName: keyof typeof Colors.light,
+  override?: string
+): string {
+  return override ?? Colors.light[colorName];
 }
 
 export function Text(props: TextProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
-  const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
+  const { style, color, ...otherProps } = props;
+  const textColor = useThemeColor('text', color);
 
-  return <DefaultText style={[{ color }, style]} {...otherProps} />;
+  return <DefaultText style={[{ color: textColor }, style]} {...otherProps} />;
 }
 
 export function View(props: ViewProps) {
-  const { style, lightColor, darkColor, ...otherProps } = props;
-  const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'background');
+  const { style, backgroundColor: bgOverride, ...otherProps } = props;
+  const bg = useThemeColor('background', bgOverride);
 
-  return <DefaultView style={[{ backgroundColor }, style]} {...otherProps} />;
+  return <DefaultView style={[{ backgroundColor: bg }, style]} {...otherProps} />;
 }

@@ -18,12 +18,12 @@ Todas as cores em `constants/Colors.ts`. Usar nomes semânticos nos componentes,
 |-----|-----|-----|
 | Verde | `#497700` | Cor secundária — tabs, botões de destaque, ícones selecionados |
 | Marrom | `#C25A14` | Cards |
-| Branco | `#FFF` | Fundo (modo light) |
-| Preto | `#2E2E2C` | Fundo (modo dark) e texto (modo light) |
-| Texto light | `#2E2E2C` | Texto no modo light |
-| Texto dark | `#FFF` | Texto no modo dark |
+| Branco | `#FFF` | Fundo |
+| Preto | `#2E2E2C` | Texto |
 
 **Tokens semânticos**: `text`, `background`, `tint`/`secondary`, `card`, `tabIconDefault`, `tabIconSelected`.
+
+**Aplicação**: usar `Text` e `View` de `@/components/Themed` — detalhes em frontend-standards.mdc.
 
 ---
 

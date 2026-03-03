@@ -39,7 +39,7 @@ Ao ser invocado, ler os arquivos de referência e montar o documento com:
 ### 3. Cores
 - Paleta do `constants/Colors.ts`
 - Tabela: nome semântico | hex | uso
-- Modos light e dark
+- Paleta única (tema light)
 - Regra: nunca usar hex direto nos componentes
 
 ### 4. Tipografia

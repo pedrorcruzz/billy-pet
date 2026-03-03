@@ -13,13 +13,4 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: greenSecondary,
   },
-  dark: {
-    text: whiteLight,
-    background: grayDark,
-    tint: greenSecondary,
-    secondary: greenSecondary,
-    card: brownCard,
-    tabIconDefault: '#ccc',
-    tabIconSelected: greenSecondary,
-  },
 };
