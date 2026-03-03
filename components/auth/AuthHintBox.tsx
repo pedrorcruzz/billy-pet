@@ -2,24 +2,49 @@ import { StyleSheet, View } from 'react-native';
 
 import { Tokens } from '@/constants/Tokens';
 import { Text, useThemeColor } from '@/components/Themed';
-import { AUTH_HINTS } from '@/utils/auth/authUtils';
+import { AUTH_HINTS, REGISTER_HINTS } from '@/services/auth/validationService';
 
 export type AuthHintType = 'username' | 'password' | 'both';
 
 export interface AuthHintBoxProps {
-  type: AuthHintType;
+  /** Tipo de dica (auth: login) */
+  type?: AuthHintType;
+  /** Mensagem única — exibe em vez das regras (ex: erro de validação) */
+  message?: string;
+  /** Regras de cadastro (name, email, password) em vez de auth hints */
+  variant?: 'auth' | 'register';
 }
 
-export function AuthHintBox({ type }: AuthHintBoxProps) {
+export function AuthHintBox({
+  type = 'both',
+  message,
+  variant = 'auth',
+}: AuthHintBoxProps) {
   const hintColor = useThemeColor('hint');
   const borderColor = useThemeColor('inputBorder');
+  const errorColor = useThemeColor('error');
+
+  if (message) {
+    return (
+      <View style={[styles.box, { borderColor }]}>
+        <Text
+          style={[styles.text, { color: errorColor }]}
+          accessibilityLabel={message}
+        >
+          • {message}
+        </Text>
+      </View>
+    );
+  }
 
   const hints =
-    type === 'both'
-      ? [AUTH_HINTS.username, AUTH_HINTS.password]
-      : type === 'username'
-        ? [AUTH_HINTS.username]
-        : [AUTH_HINTS.password];
+    variant === 'register'
+      ? [REGISTER_HINTS.username, REGISTER_HINTS.email, REGISTER_HINTS.password]
+      : type === 'both'
+        ? [AUTH_HINTS.username, AUTH_HINTS.password]
+        : type === 'username'
+          ? [AUTH_HINTS.username]
+          : [AUTH_HINTS.password];
 
   return (
     <View style={[styles.box, { borderColor }]}>

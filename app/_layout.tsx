@@ -6,7 +6,8 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { AuthProvider } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
 
 export { ErrorBoundary } from "expo-router";
 

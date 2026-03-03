@@ -2,7 +2,7 @@ import { Pressable, StyleSheet } from "react-native";
 import { router } from "expo-router";
 
 import { Text, View, useThemeColor } from "@/components/Themed";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
 import { Tokens } from "@/constants/Tokens";
 
 export default function ProfileScreen() {

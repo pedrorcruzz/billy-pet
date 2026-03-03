@@ -1,13 +1,8 @@
-import React, { createContext, useCallback, useContext, useState } from "react";
+import React, { createContext, useCallback, useContext, useState } from 'react';
 
-/** Credenciais mock: pedro@gmail.com ou pedro + Pedro1@ */
-const MOCK_CREDENTIALS = {
-  email: "pedro@gmail.com",
-  user: "pedro",
-  password: "Pedro1@",
-};
+import { authService } from '@/services/auth/authService';
 
-interface AuthContextValue {
+export interface AuthContextValue {
   isAuthenticated: boolean;
   login: (emailOrUser: string, password: string) => boolean;
   logout: () => void;
@@ -19,12 +14,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const login = useCallback((emailOrUser: string, password: string) => {
-    const normalized = emailOrUser.trim().toLowerCase();
-    const isValid =
-      (normalized === MOCK_CREDENTIALS.email || normalized === MOCK_CREDENTIALS.user) &&
-      password === MOCK_CREDENTIALS.password;
-
-    if (isValid) {
+    const success = authService.login(emailOrUser, password);
+    if (success) {
       setIsAuthenticated(true);
       return true;
     }
@@ -44,6 +35,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
 export function useAuth() {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
+  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
   return ctx;
 }
+
+export { AuthContext };

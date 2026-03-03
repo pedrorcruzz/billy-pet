@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import {
+  Alert,
   Pressable,
   StyleSheet,
   TextInput,
@@ -11,7 +12,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Tokens } from '@/constants/Tokens';
 import { Text, useThemeColor } from '@/components/Themed';
 
-export type AuthInputLabelIcon = 'person' | 'lock-closed';
+export type AuthInputLabelIcon = 'person' | 'lock-closed' | 'mail';
 
 export interface AuthInputTrailingLink {
   text: string;
@@ -20,13 +21,15 @@ export interface AuthInputTrailingLink {
 
 export interface AuthInputProps extends Omit<TextInputProps, 'style'> {
   label: string;
-  /** Ícone à esquerda — person (perfil) ou lock-closed (senha). Outline verde. */
+  /** Ícone à esquerda — person (perfil), mail (e-mail) ou lock-closed (senha). Outline verde. */
   labelIcon?: AuthInputLabelIcon;
   error?: string;
   /** Campo de senha: exibe toggle mostrar/ocultar */
   type?: 'text' | 'password';
   /** Link à direita (ex: "Esqueceu?") — só para type="password" */
   trailingLink?: AuthInputTrailingLink;
+  /** Exibe * vermelho à direita para indicar campo obrigatório */
+  required?: boolean;
 }
 
 export function AuthInput({
@@ -36,6 +39,7 @@ export function AuthInput({
   type = 'text',
   secureTextEntry: _secureTextEntry,
   trailingLink,
+  required = false,
   ...props
 }: AuthInputProps) {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -49,10 +53,14 @@ export function AuthInput({
   const showPassword = isPassword && passwordVisible;
   const secure = isPassword ? !showPassword : (_secureTextEntry ?? false);
 
-  const IconComponent = labelIcon === 'lock-closed' ? (
-    <Ionicons name="lock-closed-outline" size={24} color={tintColor} />
-  ) : (
-    <Ionicons name="person-outline" size={24} color={tintColor} />
+  const iconName: 'lock-closed-outline' | 'mail-outline' | 'person-outline' =
+    labelIcon === 'lock-closed'
+      ? 'lock-closed-outline'
+      : labelIcon === 'mail'
+        ? 'mail-outline'
+        : 'person-outline';
+  const IconComponent = (
+    <Ionicons name={iconName} size={24} color={tintColor} />
   );
 
   const toggle = isPassword ? (
@@ -70,8 +78,27 @@ export function AuthInput({
     </Pressable>
   ) : null;
 
-  const hasRightAdornment = toggle || trailingLink;
-  const rightAdornment = (toggle || trailingLink) && (
+  const showRequiredHint = () => {
+    Alert.alert(
+      'Campo obrigatório',
+      'O asterisco (*) indica que este campo é obrigatório e deve ser preenchido.',
+      [{ text: 'Entendi' }]
+    );
+  };
+
+  const requiredAsterisk = required && (
+    <Pressable
+      onPress={showRequiredHint}
+      accessibilityRole="button"
+      accessibilityLabel="Campo obrigatório. Toque para mais informações."
+      style={styles.requiredAsteriskTouch}
+    >
+      <Text style={[styles.requiredAsterisk, { color: errorColor }]}>*</Text>
+    </Pressable>
+  );
+
+  const hasRightAdornment = toggle || trailingLink || required;
+  const rightAdornment = (toggle || trailingLink || required) && (
     <View style={styles.rightAdornment} pointerEvents="box-none">
       {trailingLink ? (
         <>
@@ -87,9 +114,13 @@ export function AuthInput({
               {trailingLink.text}
             </Text>
           </Pressable>
+          {requiredAsterisk}
         </>
       ) : (
-        toggle
+        <>
+          {toggle}
+          {requiredAsterisk}
+        </>
       )}
     </View>
   );
@@ -171,6 +202,17 @@ const styles = StyleSheet.create({
     width: 1,
     alignSelf: 'stretch',
     marginHorizontal: Tokens.spacing.xs,
+  },
+  requiredAsteriskTouch: {
+    minWidth: Tokens.touchTarget,
+    minHeight: Tokens.touchTarget,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: Tokens.spacing.xs,
+  },
+  requiredAsterisk: {
+    fontSize: Tokens.typography.body,
+    fontWeight: Tokens.typography.fontWeight.bold,
   },
   error: {
     fontSize: Tokens.typography.body,

@@ -3,14 +3,14 @@ import { router } from "expo-router";
 
 import { LoginForm, SocialLoginButtons } from "@/components/auth";
 import { Text, useThemeColor } from "@/components/Themed";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/hooks/useAuth";
 import { Tokens } from "@/constants/Tokens";
 
 export default function LoginScreen() {
   const { login } = useAuth();
   const lineColor = useThemeColor("inputBorder");
   const textColor = useThemeColor("hint");
-  const hintColor = useThemeColor("hint");
+  const tintColor = useThemeColor("tint");
 
   return (
     <ScrollView
@@ -54,7 +54,7 @@ export default function LoginScreen() {
           accessibilityRole="button"
           accessibilityLabel="Fazer cadastro"
         >
-          <Text style={[styles.signUpLinkText, { color: hintColor }]}>
+          <Text style={[styles.signUpLinkText, { color: tintColor }]}>
             Não tem conta? Fazer cadastro
           </Text>
         </Pressable>

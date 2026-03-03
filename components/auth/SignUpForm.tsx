@@ -4,26 +4,34 @@ import { Pressable, StyleSheet, View } from 'react-native';
 import { Button } from '@/components/Button';
 import { Text, useThemeColor } from '@/components/Themed';
 import { Tokens } from '@/constants/Tokens';
+import { useDebouncedValidation } from '@/hooks/useDebouncedValidation';
 import {
   validateUsername,
   validatePassword,
   validateEmail,
-} from '@/utils/auth/authUtils';
+  validateConfirmPassword,
+} from '@/services/auth/validationService';
 
 import { AuthInput } from './AuthInput';
-import { AuthHintBox } from './AuthHintBox';
+import { SocialLoginButtons } from './SocialLoginButtons';
 
 export interface SignUpFormProps {
   onSignUp?: (username: string, email: string, password: string) => void | Promise<void>;
   onGoToLogin?: () => void;
   /** Mensagem de erro do servidor */
   serverError?: string;
+  onGooglePress?: () => void;
+  onApplePress?: () => void;
+  onFacebookPress?: () => void;
 }
 
 export function SignUpForm({
   onSignUp,
   onGoToLogin,
   serverError,
+  onGooglePress,
+  onApplePress,
+  onFacebookPress,
 }: SignUpFormProps) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -37,20 +45,30 @@ export function SignUpForm({
   }>({});
   const [loading, setLoading] = useState(false);
 
+  const debouncedValidate = useDebouncedValidation(500);
+
+  const setError = (key: keyof typeof errors, err?: string) => {
+    setErrors((e) => ({ ...e, [key]: err }));
+  };
+
   const tintColor = useThemeColor('tint');
   const errorColor = useThemeColor('error');
+  const hintColor = useThemeColor('hint');
+  const lineColor = useThemeColor('inputBorder');
 
   const handleSubmit = async () => {
     const newErrors: typeof errors = {};
-    newErrors.username = validateUsername(username);
-    newErrors.email = validateEmail(email);
-    newErrors.password = validatePassword(password);
+    const usernameErr = validateUsername(username);
+    const emailErr = validateEmail(email);
+    const passwordErr = validatePassword(password);
+    newErrors.username = usernameErr ?? undefined;
+    newErrors.email = emailErr ?? undefined;
+    newErrors.password = passwordErr ?? undefined;
 
-    if (password !== confirmPassword) {
-      newErrors.confirmPassword = 'As senhas não conferem';
-    } else if (!confirmPassword) {
-      newErrors.confirmPassword = 'Confirme sua senha';
-    }
+    const confirmErr = !confirmPassword
+      ? 'Confirme sua senha'
+      : validateConfirmPassword(password, confirmPassword);
+    newErrors.confirmPassword = confirmErr ?? undefined;
 
     const cleanErrors = Object.fromEntries(
       Object.entries(newErrors).filter(([, v]) => v != null)
@@ -76,31 +94,36 @@ export function SignUpForm({
 
   return (
     <View style={styles.container}>
-      <AuthHintBox type="both" />
-
       <AuthInput
         label="Usuário"
         labelIcon="person"
         type="text"
         value={username}
+        required
         onChangeText={(t) => {
           setUsername(t);
           setErrors((e) => ({ ...e, username: undefined }));
+          debouncedValidate('username', t, validateUsername, (err) =>
+            setError('username', err)
+          );
         }}
         error={errors.username}
-        placeholder="Ex: nick_nick ou nickNick"
+        placeholder="Seu usuário"
         autoCapitalize="none"
-        autoCorrect={false}
       />
 
       <AuthInput
         label="E-mail"
-        labelIcon="person"
+        labelIcon="mail"
         type="text"
         value={email}
+        required
         onChangeText={(t) => {
           setEmail(t);
           setErrors((e) => ({ ...e, email: undefined }));
+          debouncedValidate('email', t, validateEmail, (err) =>
+            setError('email', err)
+          );
         }}
         error={errors.email}
         placeholder="seu@email.com"
@@ -114,9 +137,19 @@ export function SignUpForm({
         labelIcon="lock-closed"
         type="password"
         value={password}
+        required
         onChangeText={(t) => {
           setPassword(t);
           setErrors((e) => ({ ...e, password: undefined }));
+          debouncedValidate('password', t, validatePassword, (err) =>
+            setError('password', err)
+          );
+          debouncedValidate(
+            'confirmPassword',
+            confirmPassword,
+            (v) => validateConfirmPassword(t, v),
+            (err) => setError('confirmPassword', err)
+          );
         }}
         error={errors.password}
         placeholder="Crie uma senha"
@@ -127,16 +160,25 @@ export function SignUpForm({
         labelIcon="lock-closed"
         type="password"
         value={confirmPassword}
+        required
         onChangeText={(t) => {
           setConfirmPassword(t);
           setErrors((e) => ({ ...e, confirmPassword: undefined }));
+          debouncedValidate(
+            'confirmPassword',
+            t,
+            (v) => validateConfirmPassword(password, v),
+            (err) => setError('confirmPassword', err)
+          );
         }}
         error={errors.confirmPassword}
-        placeholder="Repita a senha"
+        placeholder="Confirme sua senha"
       />
 
       {displayError ? (
-        <Text style={[styles.serverError, { color: errorColor }]}>{displayError}</Text>
+        <Text style={[styles.serverError, { color: errorColor }]}>
+          {displayError}
+        </Text>
       ) : null}
 
       <View style={styles.buttonWrapper}>
@@ -147,6 +189,18 @@ export function SignUpForm({
           accessibilityLabel="Cadastrar"
         />
       </View>
+
+      <View style={styles.dividerRow}>
+        <View style={[styles.dividerLine, { backgroundColor: lineColor }]} />
+        <Text style={[styles.dividerText, { color: hintColor }]}>OU</Text>
+        <View style={[styles.dividerLine, { backgroundColor: lineColor }]} />
+      </View>
+
+      <SocialLoginButtons
+        onGooglePress={onGooglePress}
+        onApplePress={onApplePress}
+        onFacebookPress={onFacebookPress}
+      />
 
       {onGoToLogin ? (
         <Pressable
@@ -176,10 +230,25 @@ const styles = StyleSheet.create({
     marginTop: Tokens.spacing.sm,
     marginBottom: Tokens.spacing.md,
   },
+  dividerRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Tokens.spacing.lg,
+  },
+  dividerLine: {
+    flex: 1,
+    height: 1,
+  },
+  dividerText: {
+    fontSize: Tokens.typography.body,
+    fontWeight: Tokens.typography.fontWeight.semibold,
+    paddingHorizontal: Tokens.spacing.md,
+  },
   link: {
     minHeight: Tokens.touchTarget,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: Tokens.spacing.md,
   },
   linkText: {
     fontSize: Tokens.typography.body,

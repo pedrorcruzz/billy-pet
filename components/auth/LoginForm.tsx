@@ -2,6 +2,11 @@ import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button } from '@/components/Button';
 import { Tokens } from '@/constants/Tokens';
+import { useDebouncedValidation } from '@/hooks/useDebouncedValidation';
+import {
+  validateEmailOrUser,
+  validatePasswordRequired,
+} from '@/services/auth/validationService';
 
 import { AuthInput } from './AuthInput';
 
@@ -22,10 +27,18 @@ export function LoginForm({
   const [errors, setErrors] = useState<{ emailOrUser?: string; password?: string }>({});
   const [loading, setLoading] = useState(false);
 
+  const debouncedValidate = useDebouncedValidation(500);
+
+  const setError = (key: keyof typeof errors, err?: string) => {
+    setErrors((e) => ({ ...e, [key]: err }));
+  };
+
   const handleSubmit = async () => {
     const newErrors: typeof errors = {};
-    if (!emailOrUser.trim()) newErrors.emailOrUser = 'E-mail ou usuário é obrigatório';
-    if (!password) newErrors.password = 'Senha é obrigatória';
+    const emailErr = validateEmailOrUser(emailOrUser);
+    const pwdErr = validatePasswordRequired(password);
+    if (emailErr) newErrors.emailOrUser = emailErr;
+    if (pwdErr) newErrors.password = pwdErr;
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
@@ -52,6 +65,9 @@ export function LoginForm({
         onChangeText={(t) => {
           setEmailOrUser(t);
           setErrors((e) => ({ ...e, emailOrUser: undefined }));
+          debouncedValidate('emailOrUser', t, validateEmailOrUser, (err) =>
+            setError('emailOrUser', err)
+          );
         }}
         error={errors.emailOrUser}
         placeholder="Digite seu e-mail ou usuário"
@@ -68,6 +84,9 @@ export function LoginForm({
         onChangeText={(t) => {
           setPassword(t);
           setErrors((e) => ({ ...e, password: undefined }));
+          debouncedValidate('password', t, validatePasswordRequired, (err) =>
+            setError('password', err)
+          );
         }}
         error={displayError}
         placeholder="Digite sua senha"

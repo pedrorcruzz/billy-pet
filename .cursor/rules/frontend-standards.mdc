@@ -127,24 +127,37 @@ Pastas na **raiz do projeto**:
 ```
 raiz-do-projeto/
   components/     # Componentes React (genéricos na raiz, domínios em subpastas)
-  utils/          # Funções utilitárias (validação, helpers)
-  hooks/          # Custom hooks reutilizáveis
-  mocks/          # Dados mock para testes/desenvolvimento
+  contexts/       # React Context (estado global)
+  hooks/          # Hooks que facilitam acesso ao Context
+  services/       # Dados mockados e futuramente chamadas à API
+  utils/          # Funções utilitárias (validação, formatação, helpers)
 ```
 
 | Pasta | Uso |
 |-------|-----|
 | `components/` | Componentes React — genéricos na raiz, domínios em subpastas (auth/, product/, cart/) |
+| `contexts/` | React Context — estado global (ex: `AuthContext.tsx`). Consome services. |
+| `hooks/` | Hooks que padronizam acesso ao Context (ex: `useAuth.ts`). Evitam `useContext` direto nos componentes. |
+| `services/` | Dados mockados e futuramente chamadas à API (ex: `auth/authService.ts`). Context consome services. |
 | `utils/` | Utilitários — validação, formatação, helpers (ex: `utils/auth/authUtils.ts`) |
-| `hooks/` | Hooks reutilizáveis (ex: `useAuth.ts`, `useCart.ts`) |
-| `mocks/` | Dados mock para testes e desenvolvimento |
 
-### Exemplo
+### Fluxo por domínio (ex: Auth)
 
-| Escopo | components/ | utils/ | hooks/ |
-|--------|-------------|--------|--------|
-| Auth | `components/auth/LoginForm.tsx` | `utils/auth/authUtils.ts` | `hooks/useAuth.ts` |
-| Produto | `components/product/ProductCard.tsx` | `utils/product/formatPrice.ts` | `hooks/useProducts.ts` |
+| Camada | Arquivo | Responsabilidade |
+|--------|---------|------------------|
+| **services/** | `auth/authService.ts` | Dados mockados, login/logout. Futuramente: chamadas à API. |
+| **contexts/** | `AuthContext.tsx` | Consome o service. Fornece estado (isAuthenticated, login, logout) ao React. |
+| **hooks/** | `useAuth.ts` | `useContext(AuthContext)` — facilita e padroniza acesso ao Context. |
+| **services/** | `auth/validationService.ts` | Regras de validação (usuário, email, senha). |
+| **utils/** | `auth/authUtils.ts` | Re-export de validationService (legado). |
+| **components/** | `auth/LoginForm.tsx` | UI. Usa `useAuth()`, `validationService` e `useDebouncedValidation`. |
+
+### Exemplo de arquivos
+
+| Escopo | services/ | contexts/ | hooks/ | utils/ | components/ |
+|--------|-----------|-----------|--------|--------|-------------|
+| Auth | `auth/authService.ts`, `auth/validationService.ts` | `AuthContext.tsx` | `useAuth.ts`, `useDebouncedValidation.ts` | `auth/authUtils.ts` (legado) | `auth/LoginForm.tsx` |
+| Produto | `productService.ts` | — | `useProducts.ts` | `product/formatPrice.ts` | `product/ProductCard.tsx` |
 
 ---
 
