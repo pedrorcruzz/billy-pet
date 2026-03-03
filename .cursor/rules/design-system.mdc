@@ -1,0 +1,84 @@
+---
+description: Design system — tipografia, contraste WCAG AA, área de toque e padrões mobile
+globs: "**/*.tsx, **/*.ts, constants/**/*"
+alwaysApply: false
+---
+
+# Design System — Billy Pet
+
+Padronização de tamanhos, contraste e acessibilidade conforme **W3C WCAG 2.0 Level AA**.
+
+---
+
+## Tipografia (React Native)
+
+Em React Native, `fontSize` usa valores numéricos (density-independent). Equivalente a px:
+
+| Uso | fontSize | Exemplo |
+|-----|----------|---------|
+| **Body** (padrão) | 16 | Texto principal |
+| **Heading H3** | 20 | Subtítulos |
+| **Heading H2** | 24 | Títulos de seção |
+| **Heading H1** | 28+ | Títulos principais |
+
+```tsx
+// ✅ Escala consistente
+body: { fontSize: 16 }
+h3: { fontSize: 20, fontWeight: '600' }
+h2: { fontSize: 24, fontWeight: 'bold' }
+h1: { fontSize: 28, fontWeight: 'bold' }
+```
+
+---
+
+## Contraste (WCAG AA)
+
+- **Texto normal** (< 24px e não bold): contraste mínimo **4.5:1**
+- **Texto grande** (≥ 24px ou ≥ 18px bold): contraste mínimo **3:1**
+
+Ao adicionar cores em `Colors.ts`, validar contraste entre texto e fundo. Ferramentas: [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/).
+
+---
+
+## Área de Toque (Touch Targets)
+
+Muito cobrado em UX mobile:
+
+| Plataforma | Mínimo |
+|------------|--------|
+| Apple HIG | 44pt |
+| Android Material | 48dp |
+
+**Recomendação**: usar **48** como mínimo para compatibilidade cross-platform.
+
+```tsx
+// ✅ Botões e elementos tocáveis
+touchable: {
+  minHeight: 48,
+  minWidth: 48,
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+```
+
+---
+
+## Cards e Componentes
+
+- Manter padding consistente (ex: 16)
+- Bordas arredondadas padronizadas (ex: 8, 12, 16)
+- Espaçamento entre cards: mínimo 8–12
+
+---
+
+## Resumo Prático
+
+| Item | Valor |
+|------|-------|
+| Body | 16 |
+| Headings | 20 → 24 → 28+ |
+| Contraste | 4.5:1 (normal) / 3:1 (grande) |
+| Botões / touch | min 48 × 48 |
+| Padding base | 16 |
+
+**Tokens**: usar `constants/Tokens.ts` — typography, spacing, radius, touchTarget. Skill de documentação: `.cursor/skills/document-design-system/`.

@@ -6,6 +6,10 @@ alwaysApply: false
 
 # Padrões de Frontend — Billy Pet
 
+**Design system**: ao criar ou estilizar componentes, seguir também as regras de `.cursor/rules/design-system.mdc` — tipografia (body 16, headings 20→24→28+), contraste WCAG AA, área de toque mínima 48×48, padding e bordas padronizadas.
+
+---
+
 ## Cores
 
 Todas as cores vêm de `constants/Colors.ts`. **Nunca** usar valores hex ou rgba diretos no código.
@@ -71,6 +75,7 @@ const tint = Colors[theme].tint;
 1. Adicionar em `constants/Colors.ts` em `light` e `dark`
 2. Usar o nome semântico (ex: `textLight`, `border`, `primary`)
 3. Referenciar pelo nome nos componentes
+4. **Contraste WCAG AA**: validar 4.5:1 (texto normal) ou 3:1 (texto grande) entre texto e fundo — ver design-system.mdc
 
 ---
 
@@ -94,3 +99,7 @@ Antes de criar um componente novo, **verificar** se um existente pode ser reutil
 - Um componente com props variáveis
 - Composição (componentes menores dentro de um maior)
 - Props opcionais para variar comportamento
+
+### Design system nos componentes
+
+Ao estilizar: `fontSize` 16 (body) / 20–28 (headings), elementos tocáveis com `minHeight` e `minWidth` ≥ 48, padding 16, bordas 8/12/16. Detalhes em design-system.mdc.

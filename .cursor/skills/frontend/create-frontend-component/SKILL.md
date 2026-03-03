@@ -5,7 +5,7 @@ description: Cria componentes React Native seguindo os padrões do Billy Pet —
 
 # Criar Componente Frontend — Billy Pet
 
-Seguir o passo a passo abaixo. Regras completas em [.cursor/rules/frontend-standards.mdc](../../rules/frontend-standards.mdc).
+Seguir o passo a passo abaixo. Regras em [frontend-standards.mdc](../../rules/frontend-standards.mdc). Design tokens em [Tokens.ts](../../../constants/Tokens.ts) — usar em vez de valores hardcoded.
 
 ## Passo 1: Verificar reutilização
 
@@ -69,7 +69,7 @@ import { Text, View } from '@/components/Themed';
 ```tsx
 import { StyleSheet } from 'react-native';
 import { Text, View } from '@/components/Themed';
-// ou useThemeColor se precisar de cores específicas
+import { Tokens } from '@/constants/Tokens';
 
 export function NomeDoComponente({ ...props }) {
   return (
@@ -82,11 +82,11 @@ export function NomeDoComponente({ ...props }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // cores via useThemeColor no componente, não aqui
+    padding: Tokens.spacing.md,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: Tokens.typography.h2,
+    fontWeight: Tokens.typography.fontWeight.bold,
   },
 });
 ```
