@@ -42,6 +42,12 @@ Listar todos os arquivos em `.cursor/commands/` com breve resumo:
 ### 5. Instalação e uso
 
 ```bash
+# Clonar o repositório (HTTPS)
+git clone https://github.com/pedrorcruzz/billy-pet.git
+
+# Ou via SSH
+git clone git@github.com:pedrorcruzz/billy-pet.git
+
 # Instalar dependências
 npm install
 
