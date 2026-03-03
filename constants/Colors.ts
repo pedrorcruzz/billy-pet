@@ -13,7 +13,9 @@ export default {
     tint: greenSecondary,
     secondary: greenSecondary,
     card: brownCard,
-    tabIconDefault: '#ccc',
+    /** Ícone da tab não selecionado */
+    tabIconDefault: grayDark,
+    /** Ícone da tab selecionado (destaque) */
     tabIconSelected: greenSecondary,
     /** Texto de dica/hint (ex: regras de senha) */
     hint: grayHint,

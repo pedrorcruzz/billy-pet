@@ -2,11 +2,10 @@ import { StyleSheet } from "react-native";
 
 import { Text, View } from "@/components/Themed";
 
-export default function TabOneScreen() {
+export default function OrdersScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tela Inicio</Text>
-      <View style={styles.separator} backgroundColor="#eee" />
+      <Text style={styles.title}>Pedidos</Text>
     </View>
   );
 }
@@ -20,10 +19,5 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
   },
 });

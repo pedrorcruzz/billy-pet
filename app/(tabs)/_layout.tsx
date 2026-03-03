@@ -1,45 +1,119 @@
-import React from 'react';
-import { SymbolView } from 'expo-symbols';
-import { Link, Tabs } from 'expo-router';
-import { Platform, Pressable } from 'react-native';
+import React from "react";
+import { Tabs } from "expo-router";
+import { View } from "react-native";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
-import Colors from '@/constants/Colors';
+import Colors from "@/constants/Colors";
+import { Tokens } from "@/constants/Tokens";
+
+const TAB_ICON_SIZE = 25;
+const CART_ICON_SIZE = 60;
+const cartIconCircleStyle = {
+  width: CART_ICON_SIZE,
+  height: CART_ICON_SIZE,
+  borderRadius: CART_ICON_SIZE / 2,
+  backgroundColor: Colors.light.tint,
+  justifyContent: "center" as const,
+  alignItems: "center" as const,
+  marginTop: -12,
+};
+
+const TAB_BAR_HEIGHT = 60;
+const tabBarStyle = {
+  position: "absolute" as const,
+  bottom: Tokens.spacing.xl,
+  height: TAB_BAR_HEIGHT,
+  borderRadius: TAB_BAR_HEIGHT / 2,
+  backgroundColor: Colors.light.background,
+  shadowColor: "#000",
+  shadowOffset: { width: 0, height: 4 },
+  shadowOpacity: 0.15,
+  shadowRadius: 12,
+  elevation: 8,
+  borderTopWidth: 0,
+  paddingBottom: 0,
+};
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors.light.tint,
         headerShown: true,
-      }}>
+        tabBarShowLabel: false,
+        tabBarActiveTintColor: Colors.light.tabIconSelected,
+        tabBarInactiveTintColor: Colors.light.tabIconDefault,
+        tabBarStyle,
+        tabBarItemStyle: {
+          justifyContent: "center",
+          alignItems: "center",
+          paddingTop: 6,
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => (
-            <SymbolView
-              name={{
-                ios: 'chevron.left.forwardslash.chevron.right',
-                android: 'code',
-                web: 'code',
-              }}
-              tintColor={color}
-              size={28}
+          title: "Início",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "home" : "home-outline"}
+              size={TAB_ICON_SIZE}
+              color={color}
             />
           ),
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable style={{ marginRight: 15 }}>
-                {({ pressed }) => (
-                  <SymbolView
-                    name={{ ios: 'info.circle', android: 'info', web: 'info' }}
-                    size={25}
-                    tintColor={Colors.light.text}
-                    style={{ opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
+        }}
+      />
+      <Tabs.Screen
+        name="categories"
+        options={{
+          title: "Categorias",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "grid" : "grid-outline"}
+              size={TAB_ICON_SIZE}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="cart"
+        options={{
+          title: "Carrinho",
+          tabBarIcon: ({ focused }) => (
+            <View style={cartIconCircleStyle}>
+              <Ionicons
+                name={focused ? "cart" : "cart-outline"}
+                size={TAB_ICON_SIZE}
+                color={Colors.light.onTint}
+              />
+            </View>
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="orders"
+        options={{
+          title: "Pedidos",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "clipboard" : "clipboard-outline"}
+              size={TAB_ICON_SIZE}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: "Perfil",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "person" : "person-outline"}
+              size={TAB_ICON_SIZE}
+              color={color}
+            />
           ),
         }}
       />
