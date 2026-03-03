@@ -2,7 +2,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { Tokens } from '@/constants/Tokens';
 import { Text, useThemeColor } from '@/components/Themed';
-import { AUTH_HINTS, REGISTER_HINTS } from '@/services/auth/validationService';
+import { AUTH_HINTS, REGISTER_HINTS } from '@/utils/authUtils';
 
 export type AuthHintType = 'username' | 'password' | 'both';
 

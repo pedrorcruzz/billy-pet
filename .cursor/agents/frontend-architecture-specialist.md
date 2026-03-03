@@ -78,7 +78,7 @@ app/ ──► components/ ──► hooks/ ──► contexts/ ──► servic
 
 - **Componentes**: PascalCase (`LoginForm.tsx`, `ProductCard.tsx`)
 - **Hooks**: camelCase + `use` (`useAuth.ts`, `useDebouncedValidation.ts`)
-- **Services**: camelCase (`authService.ts`, `validationService.ts`)
+- **Services**: camelCase (`authService.ts`)
 - **Contexts**: PascalCase + Context (`AuthContext.tsx`)
 - **Rotas**: kebab-case (`product-detail.tsx`, `forgot-password.tsx`)
 

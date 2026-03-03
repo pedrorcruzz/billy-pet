@@ -10,4 +10,4 @@ export {
   validateUsername,
   validatePassword,
   validateEmail,
-} from '@/services/auth/validationService';
+} from '@/utils/authUtils';

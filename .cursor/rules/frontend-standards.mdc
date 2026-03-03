@@ -148,15 +148,14 @@ raiz-do-projeto/
 | **services/** | `auth/authService.ts` | Dados mockados, login/logout. Futuramente: chamadas à API. |
 | **contexts/** | `AuthContext.tsx` | Consome o service. Fornece estado (isAuthenticated, login, logout) ao React. |
 | **hooks/** | `useAuth.ts` | `useContext(AuthContext)` — facilita e padroniza acesso ao Context. |
-| **services/** | `auth/validationService.ts` | Regras de validação (usuário, email, senha). |
-| **utils/** | `authUtils.ts` | Re-export de validationService (legado). |
-| **components/** | `auth/LoginForm.tsx` | UI. Usa `useAuth()`, `validationService` e `useDebouncedValidation`. |
+| **utils/** | `authUtils.ts` | Regras de validação (usuário, email, senha). |
+| **components/** | `auth/LoginForm.tsx` | UI. Usa `useAuth()`, `authUtils` e `useDebouncedValidation`. |
 
 ### Exemplo de arquivos
 
 | Escopo | services/ | contexts/ | hooks/ | utils/ | components/ |
 |--------|-----------|-----------|--------|--------|-------------|
-| Auth | `auth/authService.ts`, `auth/validationService.ts` | `AuthContext.tsx` | `useAuth.ts`, `useDebouncedValidation.ts` | `authUtils.ts` (legado) | `auth/LoginForm.tsx` |
+| Auth | `auth/authService.ts` | `AuthContext.tsx` | `useAuth.ts`, `useDebouncedValidation.ts` | `authUtils.ts` | `auth/LoginForm.tsx` |
 | Produto | `productService.ts` | — | `useProducts.ts` | `product/formatPrice.ts` | `product/ProductCard.tsx` |
 
 ---

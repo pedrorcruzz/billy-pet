@@ -6,7 +6,7 @@ import { useDebouncedValidation } from '@/hooks/useDebouncedValidation';
 import {
   validateEmailOrUser,
   validatePasswordRequired,
-} from '@/services/auth/validationService';
+} from '@/utils/authUtils';
 
 import { AuthInput } from './AuthInput';
 

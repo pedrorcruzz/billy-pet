@@ -10,7 +10,7 @@ import {
   validatePassword,
   validateEmail,
   validateConfirmPassword,
-} from '@/services/auth/validationService';
+} from '@/utils/authUtils';
 
 import { AuthInput } from './AuthInput';
 import { SocialLoginButtons } from './SocialLoginButtons';

@@ -33,8 +33,8 @@ raiz-do-projeto/
 | **components/** | Componentes React reutilizáveis. Domínios em subpastas: `auth/`, `product/`, `cart/` | Estado global, chamadas à API |
 | **contexts/** | Providers de React Context (AuthContext, CartContext) | Hooks, services, componentes |
 | **hooks/** | Custom hooks (`useAuth`, `useDebouncedValidation`) | Context providers, services |
-| **services/** | Dados mockados, chamadas à API, regras de validação por domínio (`auth/authService.ts`) | Componentes, utils genéricos |
-| **utils/** | Funções puras: formatação, helpers, re-exports legados | Estado, chamadas à API |
+| **services/** | Dados mockados, chamadas à API (`auth/authService.ts`) | Componentes, utils genéricos |
+| **utils/** | Funções puras: formatação, validação, helpers (`authUtils.ts`) | Estado, chamadas à API |
 | **constants/** | Cores, tokens, valores fixos | Lógica |
 
 ---
@@ -48,12 +48,11 @@ app/ (telas)
               └── contexts/ (estado global)
                     └── services/ (dados, API)
 components/ ──► hooks/ ──► contexts/ ──► services/
-                └── services/ (validação, regras)
-                └── utils/ (helpers)
+                └── utils/ (validação, helpers)
 ```
 
 - **app/** importa de **components/** e **hooks/**
-- **components/** importa de **hooks/**, **services/** (validação), **utils/**
+- **components/** importa de **hooks/**, **utils/** (validação, helpers)
 - **hooks/** importa de **contexts/**
 - **contexts/** importa de **services/**
 - **services/** não importa de contexts, hooks ou components
@@ -67,7 +66,7 @@ components/ ──► hooks/ ──► contexts/ ──► services/
 | Pasta | Arquivo | Responsabilidade |
 |-------|---------|------------------|
 | services/ | `auth/authService.ts` | Login/logout mock, futuramente API |
-| services/ | `auth/validationService.ts` | Regras de validação (usuário, email, senha) |
+| utils/ | `authUtils.ts` | Regras de validação (usuário, email, senha) |
 | contexts/ | `AuthContext.tsx` | Estado isAuthenticated, funções login/logout |
 | hooks/ | `useAuth.ts` | `useContext(AuthContext)` |
 | hooks/ | `useDebouncedValidation.ts` | Validação com debounce |
@@ -100,6 +99,6 @@ components/ ──► hooks/ ──► contexts/ ──► services/
 
 - **Componentes**: PascalCase (`LoginForm.tsx`, `ProductCard.tsx`)
 - **Hooks**: camelCase com prefixo `use` (`useAuth.ts`, `useDebouncedValidation.ts`)
-- **Services**: camelCase (`authService.ts`, `validationService.ts`)
+- **Services**: camelCase (`authService.ts`)
 - **Contexts**: PascalCase + Context (`AuthContext.tsx`)
 - **Rotas**: kebab-case (`product-detail.tsx`, `forgot-password.tsx`)

@@ -5,7 +5,7 @@ import { router } from "expo-router";
 import { SignUpForm } from "@/components/auth";
 import { useAuth } from "@/hooks/useAuth";
 import { Tokens } from "@/constants/Tokens";
-import { REGISTER_HINTS } from "@/services/auth/validationService";
+import { REGISTER_HINTS } from "@/utils/authUtils";
 import { useThemeColor } from "@/components/Themed";
 
 const REGISTER_RULES_MESSAGE = [
