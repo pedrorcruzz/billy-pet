@@ -17,9 +17,12 @@
 
 ## Linguagem e Documentação
 
-- **Arquivos `.md` e comentários**: em **português**
+- **Arquivos `.md` e comentários**: em **português (pt-BR)**
 - **Estrutura de pastas e código**: em **inglês** (nomes de arquivos, pastas, variáveis, funções, componentes)
-- **Comentários**: seguir princípios de **Clean Code** — preferir código autoexplicativo; comentar apenas quando necessário para explicar o *porquê*, não o *como*
+- **Clean Code**: código autoexplicativo; comentários apenas quando necessário
+  - Comentar o *porquê*, não o *como*
+  - Comentários sempre em **pt-BR**
+  - Evitar comentários óbvios; preferir nomes claros de variáveis e funções
 
 ---
 

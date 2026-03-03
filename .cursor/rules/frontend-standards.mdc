@@ -28,16 +28,7 @@ O `Colors.ts` é a **única fonte de verdade** para cores. Componentes usam o **
 
 **Regra no componente**: sempre referenciar pelo nome (`'card'`, `'secondary'`, etc.). Nunca colocar hex no código do componente.
 
-### Paleta principal do app
-
-| Cor | Hex | Uso |
-|-----|-----|-----|
-| Verde | `#497700` | Cor secundária — tabs, botões de destaque, ícones selecionados |
-| Marrom | `#C25A14` | Cards |
-| Branco | `#FFF` | Fundo (modo light) |
-| Preto | `#2E2E2C` | Fundo (modo dark) e texto (modo light) |
-| Texto light | `#2E2E2C` | Texto no modo light |
-| Texto dark | `#FFF` | Texto no modo dark |
+**Paleta**: ver tabela completa em `.cursor/rules/design-system.mdc` — seção Paleta de Cores.
 
 ### ❌ Evitar
 

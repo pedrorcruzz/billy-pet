@@ -1,5 +1,5 @@
 ---
-description: Design system — tipografia, contraste WCAG AA, área de toque e padrões mobile
+description: Design system — paleta de cores, tipografia, contraste WCAG AA, área de toque e padrões mobile
 globs: "**/*.tsx, **/*.ts, constants/**/*"
 alwaysApply: false
 ---
@@ -7,6 +7,23 @@ alwaysApply: false
 # Design System — Billy Pet
 
 Padronização de tamanhos, contraste e acessibilidade conforme **W3C WCAG 2.0 Level AA**.
+
+---
+
+## Paleta de Cores
+
+Todas as cores em `constants/Colors.ts`. Usar nomes semânticos nos componentes, nunca hex direto.
+
+| Cor | Hex | Uso |
+|-----|-----|-----|
+| Verde | `#497700` | Cor secundária — tabs, botões de destaque, ícones selecionados |
+| Marrom | `#C25A14` | Cards |
+| Branco | `#FFF` | Fundo (modo light) |
+| Preto | `#2E2E2C` | Fundo (modo dark) e texto (modo light) |
+| Texto light | `#2E2E2C` | Texto no modo light |
+| Texto dark | `#FFF` | Texto no modo dark |
+
+**Tokens semânticos**: `text`, `background`, `tint`/`secondary`, `card`, `tabIconDefault`, `tabIconSelected`.
 
 ---
 
@@ -84,5 +101,6 @@ touchable: {
 | Contraste | 4.5:1 (normal) / 3:1 (grande) |
 | Botões / touch | min 48 × 48 |
 | Padding base | 16 |
+| Paleta | Verde #497700, Marrom #C25A14 — ver tabela acima |
 
-**Tokens**: usar `constants/Tokens.ts` — typography, spacing, radius, touchTarget. Skill de documentação: `.cursor/skills/document-design-system/`.
+**Tokens**: usar `constants/Tokens.ts` — typography, spacing, radius, touchTarget. **Cores**: `constants/Colors.ts`. Skill de documentação: `.cursor/skills/document-design-system/`.
