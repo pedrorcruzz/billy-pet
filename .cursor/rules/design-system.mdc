@@ -1,94 +1,152 @@
 ---
-description: Design system — paleta de cores, tipografia, contraste WCAG AA, área de toque e padrões mobile
+description: Design system — Artefato Digital Acessível (mobile). Paleta, tipografia, contraste WCAG 2.2 AA, área de toque, acessibilidade React Native.
 globs: "**/*.tsx, **/*.ts, constants/**/*"
 alwaysApply: false
 ---
 
-# Design System — Billy Pet
+# Design System — Billy Pet (Artefato Digital Acessível)
 
-Padronização de tamanhos, contraste e acessibilidade conforme **W3C WCAG 2.0 Level AA**.
+Padronização conforme **WCAG 2.2 Nível AA**.
 
 ---
 
-## Paleta de Cores
+## 1. Visão Geral
 
-Todas as cores em `constants/Colors.ts`. Usar nomes semânticos nos componentes, nunca hex direto.
+| Item | Valor |
+|------|-------|
+| Projeto | Billy Pet |
+| Padrão | WCAG 2.2 Nível AA |
+| Plataforma | React Native / mobile (iOS, Android) |
+
+---
+
+## 2. Checklist de Design Acessível (UI/UX)
+
+### 2.1 Contraste de Cores
+
+- **Texto normal** (< 24px e não bold): contraste mínimo **4.5:1**
+- **Texto grande** (≥ 24px ou ≥ 18px bold): contraste mínimo **3:1**
+
+Cores em `constants/Colors.ts`. Validar com [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/).
+
+### 2.2 Não uso da cor como único indicador
+
+Informações não dependem apenas da cor. Usar ícone + cor, texto + cor (ex: campo obrigatório com * e cor).
+
+### 2.3 Fontes Legíveis
+
+Tamanho mínimo: body 16px. Usar `constants/Tokens.ts`:
+
+| Uso | fontSize | Token |
+|-----|----------|-------|
+| Body | 16 | `Tokens.typography.body` |
+| H3 | 20 | `Tokens.typography.h3` |
+| H2 | 24 | `Tokens.typography.h2` |
+| H1 | 28+ | `Tokens.typography.h1` |
+
+### 2.4 Foco Visível / Área de Toque
+
+Elementos interativos: área mínima **48×48** (Apple 44, Android 48). Usar `Tokens.touchTarget`.
+
+### 2.5 Hierarquia de Títulos
+
+Estrutura clara com `Tokens.typography.h1`, `h2`, `h3`.
+
+---
+
+## 3. Checklist de Desenvolvimento (Mobile)
+
+### 3.1 Componentes Semânticos
+
+```tsx
+// accessibilityRole e accessibilityLabel em elementos interativos
+<TouchableOpacity accessibilityRole="button" accessibilityLabel="Adicionar ao carrinho">
+<Image accessibilityLabel="Produto: ração para cães" />
+```
+
+### 3.2 Navegação por Toque
+
+Ordem lógica de foco. `accessibilityOrder` quando necessário.
+
+### 3.3 Imagens
+
+`accessibilityLabel` descritivo em `Image`. `accessibilityElementsHidden={true}` para decorativas.
+
+### 3.4 Formulários
+
+`accessibilityLabel` em `TextInput`. `accessibilityHint` para instruções. Mensagens de erro claras.
+
+### 3.5 accessibilityProps
+
+Priorizar `accessibilityLabel`, `accessibilityRole`, `accessibilityHint` em elementos complexos.
+
+### 3.6 Botões/Links Descritivos
+
+`accessibilityLabel` descritivo. Evitar "clique aqui".
+
+---
+
+## 4. Conteúdo e Mídia
+
+- **4.1 Textos Simples**: linguagem clara, evitar jargões
+- **4.2 Legendas/Transcrição**: vídeos com legendas; áudios com transcrição
+- **4.3 Evitar Piscadas**: elementos não piscam mais de 3 vezes por segundo
+
+---
+
+## 5. Paleta e Tokens
+
+### Cores (constants/Colors.ts)
 
 | Cor | Hex | Uso |
 |-----|-----|-----|
-| Verde | `#497700` | Cor secundária — tabs, botões de destaque, ícones selecionados |
+| Verde | `#497700` | Tabs, botões, destaques |
 | Marrom | `#C25A14` | Cards |
 | Branco | `#FFF` | Fundo |
 | Preto | `#2E2E2C` | Texto |
 
 **Tokens semânticos**: `text`, `background`, `tint`/`secondary`, `card`, `tabIconDefault`, `tabIconSelected`.
 
-**Aplicação**: usar `Text` e `View` de `@/components/Themed` — detalhes em frontend-standards.mdc.
+**Aplicação**: usar `Text` e `View` de `@/components/Themed` — ver frontend-standards.mdc.
 
----
-
-## Tipografia (React Native)
-
-Usar `constants/Tokens.ts` — `Tokens.typography` (body, h1, h2, h3, fontWeight). Em React Native, `fontSize` usa valores numéricos (density-independent):
-
-| Uso | fontSize | Token |
-|-----|----------|-------|
-| **Body** (padrão) | 16 | `Tokens.typography.body` |
-| **Heading H3** | 20 | `Tokens.typography.h3` |
-| **Heading H2** | 24 | `Tokens.typography.h2` |
-| **Heading H1** | 28+ | `Tokens.typography.h1` |
+### Tokens (constants/Tokens.ts)
 
 ```tsx
 import { Tokens } from '@/constants/Tokens';
 
-// ✅ Escala consistente via tokens
-body: { fontSize: Tokens.typography.body }
-h3: { fontSize: Tokens.typography.h3, fontWeight: Tokens.typography.fontWeight.semibold }
-h2: { fontSize: Tokens.typography.h2, fontWeight: Tokens.typography.fontWeight.bold }
-h1: { fontSize: Tokens.typography.h1, fontWeight: Tokens.typography.fontWeight.bold }
+// Tipografia
+fontSize: Tokens.typography.body   // 16
+fontSize: Tokens.typography.h3     // 20
+fontSize: Tokens.typography.h2     // 24
+fontSize: Tokens.typography.h1     // 28
+
+// Área de toque
+minHeight: Tokens.touchTarget     // 48
+minWidth: Tokens.touchTarget
+
+// Espaçamento e bordas
+padding: Tokens.spacing.md        // 16
+borderRadius: Tokens.radius.md    // 12
 ```
 
 ---
 
-## Contraste (WCAG AA)
+## 6. Cards e Componentes
 
-- **Texto normal** (< 24px e não bold): contraste mínimo **4.5:1**
-- **Texto grande** (≥ 24px ou ≥ 18px bold): contraste mínimo **3:1**
-
-Ao adicionar cores em `Colors.ts`, validar contraste entre texto e fundo. Ferramentas: [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/).
-
----
-
-## Área de Toque (Touch Targets)
-
-Muito cobrado em UX mobile:
-
-| Plataforma | Mínimo |
-|------------|--------|
-| Apple HIG | 44pt |
-| Android Material | 48dp |
-
-**Recomendação**: usar **48** como mínimo para compatibilidade cross-platform.
-
-```tsx
-import { Tokens } from '@/constants/Tokens';
-
-// ✅ Botões e elementos tocáveis via token
-touchable: {
-  minHeight: Tokens.touchTarget,
-  minWidth: Tokens.touchTarget,
-  justifyContent: 'center',
-  alignItems: 'center',
-}
-```
-
----
-
-## Cards e Componentes
-
-- Manter padding consistente: `Tokens.spacing.md` (16)
-- Bordas arredondadas: `Tokens.radius.sm` (8), `Tokens.radius.md` (12), `Tokens.radius.lg` (16)
+- Padding: `Tokens.spacing.md` (16)
+- Bordas: `Tokens.radius.sm` (8), `Tokens.radius.md` (12), `Tokens.radius.lg` (16)
 - Espaçamento entre cards: `Tokens.spacing.sm` (8) ou `Tokens.spacing.md` (16)
+
+---
+
+## 7. Ferramentas de Validação (Mobile)
+
+| Tipo | Ferramenta |
+|------|------------|
+| Automático | Android Accessibility Scanner; Xcode Accessibility Inspector |
+| Manual | Navegação por gestos; ordem de foco |
+| Leitor de tela | TalkBack (Android), VoiceOver (iOS) |
+| Contraste | WebAIM Contrast Checker |
 
 ---
 
@@ -99,8 +157,7 @@ touchable: {
 | Body | 16 |
 | Headings | 20 → 24 → 28+ |
 | Contraste | 4.5:1 (normal) / 3:1 (grande) |
-| Botões / touch | min 48 × 48 |
+| Touch | min 48 × 48 |
 | Padding base | 16 |
-| Paleta | Verde #497700, Marrom #C25A14 — ver tabela acima |
 
-**Tokens**: usar `constants/Tokens.ts` — typography, spacing, radius, touchTarget. **Cores**: `constants/Colors.ts`. Skill de documentação: `.cursor/skills/document-design-system/`.
+**Tokens**: `constants/Tokens.ts`. **Cores**: `constants/Colors.ts`. **Documentação**: `.cursor/skills/document-design-system/`.

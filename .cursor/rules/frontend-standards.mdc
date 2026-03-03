@@ -6,7 +6,7 @@ alwaysApply: false
 
 # Padrões de Frontend — Billy Pet
 
-**Design system**: ao criar ou estilizar componentes, seguir também as regras de `.cursor/rules/design-system.mdc` — tipografia (body 16, headings 20→24→28+), contraste WCAG AA, área de toque mínima 48×48, padding e bordas padronizadas.
+**Design system**: ao criar ou estilizar componentes, seguir `.cursor/rules/design-system.mdc` — tipografia (body 16, headings 20→24→28+), contraste WCAG 2.2 AA, área de toque mínima 48×48, `accessibilityLabel` em elementos interativos, padding e bordas padronizadas.
 
 **Tipografia e tokens**: usar `constants/Tokens.ts` — typography (body, h1–h3), spacing, radius, touchTarget. Nunca hardcodar valores de fontSize, padding ou borderRadius; referenciar pelos tokens.
 
@@ -30,7 +30,7 @@ O `Colors.ts` é a **única fonte de verdade** para cores. Componentes usam o **
 
 **Themed.tsx** (`components/Themed.tsx`): wrappers de `Text` e `View` que aplicam automaticamente as cores do design system (`Colors.light`). Evitam repetir `style={{ color }}` em todo lugar. `Text` usa `text` por padrão; `View` usa `background`. Override opcional: `Text` com prop `color`, `View` com prop `backgroundColor`.
 
-**Paleta**: ver tabela completa em `.cursor/rules/design-system.mdc` — seção Paleta de Cores.
+**Paleta**: ver `.cursor/rules/design-system.mdc` — seção 5. Paleta e Tokens.
 
 ### ❌ Evitar
 
@@ -71,7 +71,7 @@ const tint = Colors.light.tint;
 1. Adicionar em `constants/Colors.ts` em `light`
 2. Usar o nome semântico (ex: `textLight`, `border`, `primary`)
 3. Referenciar pelo nome nos componentes
-4. **Contraste WCAG AA**: validar 4.5:1 (texto normal) ou 3:1 (texto grande) entre texto e fundo — ver design-system.mdc
+4. **Contraste WCAG 2.2 AA**: validar 4.5:1 (texto normal) ou 3:1 (texto grande) entre texto e fundo — ver design-system.mdc seção 2.1
 
 ---
 
@@ -120,4 +120,4 @@ Antes de criar um componente novo, **verificar** se um existente pode ser reutil
 
 ### Design system nos componentes
 
-Ao estilizar: usar `constants/Tokens.ts` — `Tokens.typography.body`, `Tokens.typography.h1`–`h3`, `Tokens.spacing`, `Tokens.radius`, `Tokens.touchTarget`. Evitar valores hardcoded. Detalhes em design-system.mdc.
+Ao estilizar: usar `constants/Tokens.ts` — `Tokens.typography.body`, `Tokens.typography.h1`–`h3`, `Tokens.spacing`, `Tokens.radius`, `Tokens.touchTarget`. Incluir `accessibilityLabel` em elementos interativos. Evitar valores hardcoded. Detalhes em design-system.mdc (seções 2, 3, 5).
