@@ -1,1 +1,1 @@
-Use o subagente **frontend-architecture-specialist** para criar arquivos novos, reorganizar código, refatorar estrutura ou verificar arquitetura. Seguir rigorosamente a skill **project-structure** em `.cursor/skills/project-structure/SKILL.md`
+Use o subagente **frontend-specialist** para criar arquivos novos, reorganizar código, refatorar estrutura ou verificar arquitetura. Seguir rigorosamente a skill **project-structure** em `.cursor/skills/frontend/project-structure/SKILL.md`
