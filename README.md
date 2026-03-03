@@ -8,9 +8,9 @@ Billy Pet é um aplicativo de pet shop desenvolvido para a Faculdade CESMAC. Pro
 
 | Arquivo | Resumo |
 |---------|--------|
-| `components.md` | Cria ou modifica componentes React Native seguindo o design system |
+| `components.md` | Cria ou modifica componentes React Native via frontend-specialist |
 | `git-commit.md` | Cria commits no padrão Conventional Commits via github-specialist |
-| `create-doc-design-system.md` | Gera documentação completa do design system Billy Pet |
+| `doc-design-system.md` | Gera documentação completa do design system Billy Pet via design-system-documenter |
 | `readme.md` | Cria ou atualiza o README do projeto via github-specialist |
 
 ## Instalação e uso
