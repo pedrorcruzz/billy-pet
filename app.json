@@ -49,6 +49,13 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "2a2f9a29-a8fb-4961-84eb-d1537f8b040e"
+      }
+    },
+    "owner": "pedrorcruzz-organization"
   }
 }
