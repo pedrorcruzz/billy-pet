@@ -1,0 +1,1 @@
+Use o subagente **testing-specialist** para criar ou debugar testes. Seguir rigorosamente a skill **jest-expo-testing** em `.cursor/skills/testing/jest-expo/SKILL.md` e a rule **testing-standards** em `.cursor/rules/testing-standards.mdc`

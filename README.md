@@ -12,6 +12,7 @@ Billy Pet é um aplicativo de pet shop desenvolvido para a Faculdade CESMAC. Pro
 | `git-commit.md` | Cria commits no padrão Conventional Commits via github-specialist |
 | `doc-design-system.md` | Gera documentação completa do design system Billy Pet via design-system-documenter |
 | `readme.md` | Cria ou atualiza o README do projeto via github-specialist |
+| `test.md` | Cria ou debuga testes com Jest e Expo via testing-specialist |
 
 ## Instalação e uso
 

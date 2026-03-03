@@ -1,0 +1,55 @@
+---
+description: Padrões obrigatórios de testes — Jest e jest-expo
+globs: "**/*.ts, **/*.tsx"
+alwaysApply: false
+---
+
+# Padrões de Testes — Billy Pet
+
+## 1. Estrutura
+
+- Testes ficam **ao lado** do arquivo testado (colocation).
+- **Nunca** criar pasta global `tests/` ou `__tests__/` na raiz.
+- **Nunca** centralizar testes fora do módulo.
+
+**Exemplo:**
+```
+components/
+  Button.tsx
+  Button.test.tsx
+utils/
+  formatPrice.ts
+  formatPrice.test.ts
+```
+
+## 2. Nomeação
+
+- `.test.ts` — funções e utilitários.
+- `.test.tsx` — componentes React.
+- **Não** usar `.spec.ts` ou `.spec.tsx`.
+
+## 3. Ferramentas (projeto atual)
+
+- **Preset**: `jest-expo` (configurado em `package.json`).
+- **Jest**: `describe`, `it`, `expect` para todos os testes.
+- **Script**: `npm test` (com `--passWithNoTests`).
+
+## 4. Boas práticas
+
+- Testar **comportamento** e não implementação interna.
+- Evitar mocks desnecessários.
+- Snapshot apenas quando fizer sentido para UI estável.
+- Todo utilitário novo deve ter teste.
+- Componentes críticos devem ter pelo menos um teste básico de renderização.
+
+**Exemplo — utilitário:**
+```typescript
+// formatPrice.test.ts
+import { formatPrice } from './formatPrice';
+
+describe('formatPrice', () => {
+  it('formata valor em reais', () => {
+    expect(formatPrice(19.9)).toBe('R$ 19,90');
+  });
+});
+```
