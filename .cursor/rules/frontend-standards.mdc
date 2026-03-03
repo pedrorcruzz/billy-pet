@@ -97,6 +97,29 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 ---
 
+## Splash Screen
+
+A splash screen esconde automaticamente quando o app está pronto. Para configurar opções de animação (opcional):
+
+```tsx
+import { Stack } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
+
+// Opcional — animação ao esconder a splash
+SplashScreen.setOptions({
+  duration: 1000,
+  fade: true,
+});
+
+export default function RootLayout() {
+  return <Stack />;
+}
+```
+
+Para manter a splash visível até recursos carregarem, usar `SplashScreen.preventAutoHideAsync()` e `SplashScreen.hideAsync()` quando pronto.
+
+---
+
 ## Componentes Reutilizáveis
 
 Antes de criar um componente novo, **verificar** se um existente pode ser reutilizado ou estendido.
