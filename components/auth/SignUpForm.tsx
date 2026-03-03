@@ -1,12 +1,9 @@
 import { useState } from 'react';
-import {
-  Pressable,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 
-import { Tokens } from '@/constants/Tokens';
+import { Button } from '@/components/Button';
 import { Text, useThemeColor } from '@/components/Themed';
+import { Tokens } from '@/constants/Tokens';
 import {
   validateUsername,
   validatePassword,
@@ -15,7 +12,6 @@ import {
 
 import { AuthInput } from './AuthInput';
 import { AuthHintBox } from './AuthHintBox';
-import { PasswordInput } from './PasswordInput';
 
 export interface SignUpFormProps {
   onSignUp?: (username: string, email: string, password: string) => void | Promise<void>;
@@ -42,7 +38,6 @@ export function SignUpForm({
   const [loading, setLoading] = useState(false);
 
   const tintColor = useThemeColor('tint');
-  const onTintColor = useThemeColor('onTint');
   const errorColor = useThemeColor('error');
 
   const handleSubmit = async () => {
@@ -85,6 +80,8 @@ export function SignUpForm({
 
       <AuthInput
         label="Usuário"
+        labelIcon="person"
+        type="text"
         value={username}
         onChangeText={(t) => {
           setUsername(t);
@@ -98,6 +95,8 @@ export function SignUpForm({
 
       <AuthInput
         label="E-mail"
+        labelIcon="person"
+        type="text"
         value={email}
         onChangeText={(t) => {
           setEmail(t);
@@ -110,8 +109,10 @@ export function SignUpForm({
         keyboardType="email-address"
       />
 
-      <PasswordInput
+      <AuthInput
         label="Senha"
+        labelIcon="lock-closed"
+        type="password"
         value={password}
         onChangeText={(t) => {
           setPassword(t);
@@ -121,8 +122,10 @@ export function SignUpForm({
         placeholder="Crie uma senha"
       />
 
-      <PasswordInput
+      <AuthInput
         label="Confirmar senha"
+        labelIcon="lock-closed"
+        type="password"
         value={confirmPassword}
         onChangeText={(t) => {
           setConfirmPassword(t);
@@ -136,17 +139,14 @@ export function SignUpForm({
         <Text style={[styles.serverError, { color: errorColor }]}>{displayError}</Text>
       ) : null}
 
-      <Pressable
-        style={[styles.button, { backgroundColor: tintColor }]}
-        onPress={handleSubmit}
-        disabled={loading}
-        accessibilityRole="button"
-        accessibilityLabel="Cadastrar"
-      >
-        <Text style={[styles.buttonText, { color: onTintColor }]}>
-          {loading ? 'Cadastrando...' : 'Cadastrar'}
-        </Text>
-      </Pressable>
+      <View style={styles.buttonWrapper}>
+        <Button
+          title={loading ? 'Cadastrando...' : 'Cadastrar'}
+          onPress={handleSubmit}
+          disabled={loading}
+          accessibilityLabel="Cadastrar"
+        />
+      </View>
 
       {onGoToLogin ? (
         <Pressable
@@ -172,17 +172,9 @@ const styles = StyleSheet.create({
     fontSize: Tokens.typography.body,
     marginBottom: Tokens.spacing.md,
   },
-  button: {
-    minHeight: Tokens.touchTarget,
-    borderRadius: Tokens.radius.sm,
-    justifyContent: 'center',
-    alignItems: 'center',
+  buttonWrapper: {
     marginTop: Tokens.spacing.sm,
     marginBottom: Tokens.spacing.md,
-  },
-  buttonText: {
-    fontSize: Tokens.typography.body,
-    fontWeight: Tokens.typography.fontWeight.bold,
   },
   link: {
     minHeight: Tokens.touchTarget,

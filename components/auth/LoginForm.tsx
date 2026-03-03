@@ -1,35 +1,26 @@
 import { useState } from 'react';
-import {
-  Pressable,
-  StyleSheet,
-  View,
-} from 'react-native';
-
+import { StyleSheet, View } from 'react-native';
+import { Button } from '@/components/Button';
 import { Tokens } from '@/constants/Tokens';
-import { Text, useThemeColor } from '@/components/Themed';
 
 import { AuthInput } from './AuthInput';
-import { PasswordInput } from './PasswordInput';
 
 export interface LoginFormProps {
   onLogin?: (emailOrUser: string, password: string) => void | Promise<void>;
-  onGoToSignUp?: () => void;
+  onForgotPassword?: () => void;
   /** Mensagem de erro do servidor (ex: credenciais inválidas) */
   serverError?: string;
 }
 
 export function LoginForm({
   onLogin,
-  onGoToSignUp,
+  onForgotPassword,
   serverError,
 }: LoginFormProps) {
   const [emailOrUser, setEmailOrUser] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<{ emailOrUser?: string; password?: string }>({});
   const [loading, setLoading] = useState(false);
-
-  const tintColor = useThemeColor('tint');
-  const onTintColor = useThemeColor('onTint');
 
   const handleSubmit = async () => {
     const newErrors: typeof errors = {};
@@ -55,6 +46,8 @@ export function LoginForm({
     <View style={styles.container}>
       <AuthInput
         label="E-mail ou usuário"
+        labelIcon="person"
+        type="text"
         value={emailOrUser}
         onChangeText={(t) => {
           setEmailOrUser(t);
@@ -67,8 +60,10 @@ export function LoginForm({
         keyboardType="email-address"
       />
 
-      <PasswordInput
+      <AuthInput
         label="Senha"
+        labelIcon="lock-closed"
+        type="password"
         value={password}
         onChangeText={(t) => {
           setPassword(t);
@@ -76,30 +71,21 @@ export function LoginForm({
         }}
         error={displayError}
         placeholder="Digite sua senha"
+        trailingLink={
+          onForgotPassword
+            ? { text: 'Esqueceu?', onPress: onForgotPassword }
+            : undefined
+        }
       />
 
-      <Pressable
-        style={[styles.button, { backgroundColor: tintColor }]}
-        onPress={handleSubmit}
-        disabled={loading}
-        accessibilityRole="button"
-        accessibilityLabel="Entrar"
-      >
-        <Text style={[styles.buttonText, { color: onTintColor }]}>{loading ? 'Entrando...' : 'Entrar'}</Text>
-      </Pressable>
-
-      {onGoToSignUp ? (
-        <Pressable
-          style={styles.link}
-          onPress={onGoToSignUp}
-          accessibilityRole="button"
-          accessibilityLabel="Fazer cadastro"
-        >
-          <Text style={[styles.linkText, { color: tintColor }]}>
-            Não tem conta? Fazer cadastro
-          </Text>
-        </Pressable>
-      ) : null}
+      <View style={styles.buttonWrapper}>
+        <Button
+          title={loading ? 'Entrando...' : 'Entrar'}
+          onPress={handleSubmit}
+          disabled={loading}
+          accessibilityLabel="Entrar"
+        />
+      </View>
     </View>
   );
 }
@@ -108,25 +94,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
   },
-  button: {
-    minHeight: Tokens.touchTarget,
-    borderRadius: Tokens.radius.sm,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: Tokens.spacing.sm,
+  buttonWrapper: {
     marginBottom: Tokens.spacing.md,
-  },
-  buttonText: {
-    fontSize: Tokens.typography.body,
-    fontWeight: Tokens.typography.fontWeight.bold,
-  },
-  link: {
-    minHeight: Tokens.touchTarget,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  linkText: {
-    fontSize: Tokens.typography.body,
-    fontWeight: Tokens.typography.fontWeight.semibold,
   },
 });

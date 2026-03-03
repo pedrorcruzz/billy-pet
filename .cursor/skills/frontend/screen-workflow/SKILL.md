@@ -21,13 +21,19 @@ Esta skill controla **telas** e **componentes na tela**. Cria, edita e remove. *
 
 ---
 
+## Rotas — convenção
+
+**Nome do arquivo = nome da rota.** Ex: `(auth)/login.tsx`, `(auth)/register.tsx`, `(tabs)/cart.tsx`. Não usar `pasta/index.tsx`.
+
+---
+
 ## Criar tela
 
 1. Definir escopo: objetivo, layout, rota
 2. Mapear componentes necessários em `components/`
 3. Criar componentes faltantes (skill create-frontend-component)
 4. Montar a tela chamando os componentes na ordem desejada
-5. Posicionar em `app/` (kebab-case) e registrar no layout
+5. Criar arquivo em `app/` (ex: `login.tsx`, `register.tsx`) e registrar no layout
 
 ---
 
