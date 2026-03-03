@@ -1,14 +1,14 @@
 ---
-description: Rotas com autenticação, níveis de acesso (admin/usuário) e fluxo de carrinho no e-commerce
+description: Rotas com autenticação obrigatória. Usuário deve estar logado para acessar o app. Se não logado, permanece na tela de login ou cadastro.
 globs: "**/app/**/*, **/components/auth/**/*, **/components/cart/**/*, **/hooks/**/*"
 alwaysApply: false
 ---
 
 # Rotas e Autenticação — Billy Pet (E-commerce)
 
-## Princípio: Autenticação opcional para navegação
+## Princípio: Autenticação obrigatória
 
-O usuário **não precisa** estar logado para usar o app. Autenticação só é exigida ao **finalizar compra**.
+O usuário **deve** estar logado para acessar o sistema. Se não estiver logado, permanece na tela de **login** ou **cadastro**. Não há acesso ao app sem autenticação.
 
 ---
 
@@ -16,26 +16,19 @@ O usuário **não precisa** estar logado para usar o app. Autenticação só é 
 
 | Tipo | Rotas permitidas |
 |------|------------------|
-| **Usuário comum** | Catálogo, produto, carrinho, checkout (após login) |
+| **Não logado** | Apenas login e cadastro |
+| **Usuário comum** | Catálogo, produto, carrinho, checkout, pedidos, perfil |
 | **Admin** | Todas as rotas do usuário + rotas administrativas |
-| **Visitante (não logado)** | Catálogo, produto, carrinho (sem checkout) |
 
 **Regra**: usuário comum **não** acessa rotas de admin. Proteger rotas admin com verificação de role.
 
 ---
 
-## Fluxo do carrinho
+## Fluxo de entrada
 
-1. **Deslogado**: pode adicionar itens ao carrinho (persistir localmente, ex: AsyncStorage)
-2. **Checkout**: ao tentar avançar, exibir tela de login/cadastro
-3. **Após login**: itens do carrinho local são **mesclados** na conta do usuário (aparecem no carrinho logado)
-
----
-
-## Onde exigir login
-
-- **Checkout** — ao clicar em "Finalizar compra" ou "Ir para pagamento"
-- **Rotas admin** — redirecionar para login se não autenticado ou sem role admin
+1. **Ao abrir o app**: verificar se há token/sessão válida
+2. **Se não logado** → exibir tela de login ou cadastro (não acessa o restante do app)
+3. **Se logado** → liberar acesso às rotas principais (tabs, etc.)
 
 ---
 
@@ -43,10 +36,13 @@ O usuário **não precisa** estar logado para usar o app. Autenticação só é 
 
 ```
 app/
-  (tabs)/           # Público — catálogo, carrinho
-  (auth)/           # Login, cadastro (modal ou stack)
+  _layout.tsx       # Verificar auth na raiz; redirecionar para (auth) se não logado
+  (auth)/           # Login, cadastro — exibido quando NÃO logado
+    login.tsx
+    sign-up.tsx
+  (tabs)/           # Protegido — só quando logado
   (admin)/          # Protegido — só admin
     _layout.tsx     # Verificar role, redirecionar se não admin
 ```
 
-Ao implementar: checar autenticação no layout da rota protegida; redirecionar ou exibir modal de login conforme o fluxo.
+Ao implementar: checar autenticação no layout raiz; redirecionar para `/(auth)/login` ou `/(auth)/sign-up` se não autenticado.

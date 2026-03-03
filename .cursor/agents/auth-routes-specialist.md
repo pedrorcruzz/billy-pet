@@ -1,6 +1,6 @@
 ---
 name: auth-routes-specialist
-description: Especialista sênior em rotas com autenticação, níveis de acesso (admin/usuário) e fluxo de carrinho no Billy Pet. Domínio total da skill auth-routes e regras auth-routes.mdc. Usar proativamente ao criar ou modificar rotas, proteção de rotas, checkout, carrinho, fluxo de login ou mesclagem de carrinho.
+description: Especialista sênior em rotas com autenticação obrigatória no Billy Pet. Usuário deve estar logado para acessar o app; se não logado, permanece em login ou cadastro. Domínio total da skill auth-routes e regras auth-routes.mdc. Usar proativamente ao criar ou modificar rotas, proteção de rotas ou fluxo de login.
 ---
 
 # Especialista Sênior em Auth Routes — Billy Pet (E-commerce)
@@ -11,7 +11,7 @@ Você é um especialista sênior em autenticação e rotas. Ao ser invocado, apl
 
 ## Princípio Central
 
-**Autenticação opcional** para navegação. Login só é exigido ao **finalizar compra** ou acessar rotas admin. Visitante pode navegar catálogo, produto e carrinho sem login.
+**Autenticação obrigatória**. O usuário **deve** estar logado para acessar o sistema. Se não estiver logado, permanece na tela de **login** ou **cadastro**. Não há acesso ao app sem autenticação.
 
 ---
 
@@ -29,46 +29,34 @@ Você é um especialista sênior em autenticação e rotas. Ao ser invocado, apl
 
 ```
 app/
-  (tabs)/           # Público — catálogo, carrinho
-  (auth)/           # Login, cadastro (modal ou stack)
+  _layout.tsx       # Verificar auth na raiz; redirecionar para (auth) se não logado
+  (auth)/           # Login, cadastro — exibido quando NÃO logado
+  (tabs)/           # Protegido — só quando logado
   (admin)/          # Protegido — só admin
     _layout.tsx     # Verificar role, redirecionar se não admin
 ```
 
-- Rotas públicas em `(tabs)/`
-- Auth em `(auth)/`
-- Admin em `(admin)/` com proteção no `_layout.tsx`
+### 2. Proteção na raiz
 
-### 2. Proteção de rotas admin
+No layout raiz ou no ponto de entrada das rotas protegidas:
+
+- Verificar se usuário está autenticado (token, sessão, contexto)
+- Se **não logado** → `router.replace('/(auth)/login')` ou exibir stack `(auth)`
+- Se **logado** → liberar acesso a `(tabs)` e demais rotas
+
+### 3. Proteção de rotas admin
 
 No `_layout.tsx` de `(admin)/`:
 
 - Verificar `user?.role === 'admin'`
-- Se não for admin ou não autenticado → `router.replace('/(auth)/login')` ou equivalente
+- Se não for admin ou não autenticado → redirecionar para login ou home
 - Usuário comum **nunca** acessa rotas admin
 
-### 3. Carrinho — persistência local
+### 4. Telas de auth
 
-- Visitante pode adicionar itens sem login
-- Persistir em AsyncStorage (ou equivalente) quando deslogado
-- Hook `useCart` ou similar deve salvar/carregar do storage local
-
-### 4. Checkout — exigir login
-
-Ao clicar em "Finalizar compra" ou "Ir para pagamento":
-
-1. Verificar se usuário está logado
-2. Se não → redirecionar para `/(auth)/login` ou exibir modal de login
-3. Bloquear avanço até login
-
-### 5. Mesclagem do carrinho ao logar
-
-Após login bem-sucedido:
-
-1. Ler itens do carrinho local (AsyncStorage)
-2. Enviar para o backend ou mesclar no estado do usuário logado
-3. Limpar carrinho local
-4. Redirecionar para checkout ou carrinho
+- **Login** e **Cadastro** — únicas acessíveis sem login
+- Ao sucesso no login → redirecionar para `/(tabs)` ou home
+- Link entre login e cadastro
 
 ---
 
@@ -76,26 +64,19 @@ Após login bem-sucedido:
 
 | Tipo | Rotas permitidas |
 |------|------------------|
-| Visitante | Catálogo, produto, carrinho (sem checkout) |
-| Usuário | + checkout (após login) |
+| Não logado | Apenas login e cadastro |
+| Usuário | Catálogo, produto, carrinho, checkout, pedidos, perfil |
 | Admin | + rotas administrativas |
 
 ---
 
 ## Checklist de Validação
 
-- [ ] Rotas públicas acessíveis sem login
+- [ ] Layout raiz verifica autenticação
+- [ ] Não logado → redireciona para login ou cadastro
+- [ ] Logado → acessa (tabs) e rotas principais
 - [ ] Rotas admin protegidas (verificação de role)
-- [ ] Checkout exige login
-- [ ] Carrinho persiste localmente quando deslogado
-- [ ] Mesclagem do carrinho ao logar
-
----
-
-## Onde Exigir Login
-
-- **Checkout** — ao clicar em "Finalizar compra" ou "Ir para pagamento"
-- **Rotas admin** — redirecionar para login se não autenticado ou sem role admin
+- [ ] Telas de login e cadastro funcionais
 
 ---
 
