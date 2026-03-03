@@ -15,7 +15,6 @@
   "dependencies": {
     "@react-navigation/native": "^7.1.28",
     "expo": "~54.0.0",
-    "expo-blur": "^55.0.8",
     "expo-constants": "~18.0.13",
     "expo-font": "~14.0.11",
     "expo-linking": "~8.0.11",
