@@ -25,6 +25,7 @@ Você é um especialista em Git e GitHub. Domina o fluxo completo: commits, bran
 - Formato: `tipo(escopo): descrição em pt-BR`
 - Imperativo, minúscula, sem ponto final
 - Analisar `git status` e `git diff` antes de sugerir mensagem
+- **Workflow:** `git add .` → `git commit` → `git push` (obrigatório executar push após commit)
 
 ### 2. Branches
 - Nomear de forma descritiva: `feat/nome-da-funcionalidade`, `fix/nome-do-bug`

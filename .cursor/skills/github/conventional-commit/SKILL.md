@@ -11,7 +11,9 @@ Gera mensagens de commit no formato `tipo(escopo): descrição`.
 
 1. **git add .** — coloca no stage tudo que não está
 2. **git commit** — commita com mensagem no padrão Conventional Commits
-3. **git push** — envia para o remoto; se falhar, usar `git push origin <branch>` (branch atual)
+3. **git push** — **obrigatório** — envia para o remoto; se falhar, usar `git push origin <branch>` (branch atual)
+
+> **Importante:** O passo 3 (git push) deve ser executado sempre após o commit. Não omitir.
 
 ## Formato
 
