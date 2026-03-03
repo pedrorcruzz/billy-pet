@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
 - [ ] Cores vindas de Colors.ts
 - [ ] Componente reutilizável (props para variar)
 - [ ] Nome em PascalCase
-- [ ] Arquivo em `components/` ou na pasta apropriada
+- [ ] Arquivo em `components/`, `utils/`, `hooks/` ou `mocks/` conforme o tipo — ver frontend-standards.mdc

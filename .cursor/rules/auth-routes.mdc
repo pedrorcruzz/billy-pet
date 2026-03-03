@@ -1,0 +1,52 @@
+---
+description: Rotas com autenticação, níveis de acesso (admin/usuário) e fluxo de carrinho no e-commerce
+globs: "**/app/**/*, **/components/auth/**/*, **/components/cart/**/*, **/hooks/**/*"
+alwaysApply: false
+---
+
+# Rotas e Autenticação — Billy Pet (E-commerce)
+
+## Princípio: Autenticação opcional para navegação
+
+O usuário **não precisa** estar logado para usar o app. Autenticação só é exigida ao **finalizar compra**.
+
+---
+
+## Níveis de acesso
+
+| Tipo | Rotas permitidas |
+|------|------------------|
+| **Usuário comum** | Catálogo, produto, carrinho, checkout (após login) |
+| **Admin** | Todas as rotas do usuário + rotas administrativas |
+| **Visitante (não logado)** | Catálogo, produto, carrinho (sem checkout) |
+
+**Regra**: usuário comum **não** acessa rotas de admin. Proteger rotas admin com verificação de role.
+
+---
+
+## Fluxo do carrinho
+
+1. **Deslogado**: pode adicionar itens ao carrinho (persistir localmente, ex: AsyncStorage)
+2. **Checkout**: ao tentar avançar, exibir tela de login/cadastro
+3. **Após login**: itens do carrinho local são **mesclados** na conta do usuário (aparecem no carrinho logado)
+
+---
+
+## Onde exigir login
+
+- **Checkout** — ao clicar em "Finalizar compra" ou "Ir para pagamento"
+- **Rotas admin** — redirecionar para login se não autenticado ou sem role admin
+
+---
+
+## Estrutura sugerida (Expo Router)
+
+```
+app/
+  (tabs)/           # Público — catálogo, carrinho
+  (auth)/           # Login, cadastro (modal ou stack)
+  (admin)/          # Protegido — só admin
+    _layout.tsx     # Verificar role, redirecionar se não admin
+```
+
+Ao implementar: checar autenticação no layout da rota protegida; redirecionar ou exibir modal de login conforme o fluxo.

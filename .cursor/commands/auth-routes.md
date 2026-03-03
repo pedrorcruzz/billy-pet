@@ -1,0 +1,1 @@
+Use o subagente **auth-routes-specialist** para criar ou modificar rotas com autenticação, proteção de rotas, checkout, carrinho ou fluxo de login. Seguir rigorosamente a skill **auth-routes** em `.cursor/skills/auth/auth-routes/SKILL.md`

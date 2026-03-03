@@ -1,5 +1,5 @@
 ---
-description: Padrões de frontend — cores, ícones (expo-symbols + vector-icons) e componentes reutilizáveis
+description: Padrões de frontend — cores, ícones (expo-symbols + vector-icons), estrutura de pastas (components/auth/, product/, etc.) e componentes reutilizáveis
 globs: "**/*.tsx, **/*.ts"
 alwaysApply: false
 ---
@@ -117,6 +117,34 @@ export default function RootLayout() {
 ```
 
 Para manter a splash visível até recursos carregarem, usar `SplashScreen.preventAutoHideAsync()` e `SplashScreen.hideAsync()` quando pronto.
+
+---
+
+## Estrutura de pastas (raiz do projeto)
+
+Pastas na **raiz do projeto**:
+
+```
+raiz-do-projeto/
+  components/     # Componentes React (genéricos na raiz, domínios em subpastas)
+  utils/          # Funções utilitárias (validação, helpers)
+  hooks/          # Custom hooks reutilizáveis
+  mocks/          # Dados mock para testes/desenvolvimento
+```
+
+| Pasta | Uso |
+|-------|-----|
+| `components/` | Componentes React — genéricos na raiz, domínios em subpastas (auth/, product/, cart/) |
+| `utils/` | Utilitários — validação, formatação, helpers (ex: `utils/auth/authUtils.ts`) |
+| `hooks/` | Hooks reutilizáveis (ex: `useAuth.ts`, `useCart.ts`) |
+| `mocks/` | Dados mock para testes e desenvolvimento |
+
+### Exemplo
+
+| Escopo | components/ | utils/ | hooks/ |
+|--------|-------------|--------|--------|
+| Auth | `components/auth/LoginForm.tsx` | `utils/auth/authUtils.ts` | `hooks/useAuth.ts` |
+| Produto | `components/product/ProductCard.tsx` | `utils/product/formatPrice.ts` | `hooks/useProducts.ts` |
 
 ---
 
