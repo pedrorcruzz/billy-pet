@@ -1,5 +1,5 @@
 ---
-description: Padrões de frontend — cores centralizadas e componentes reutilizáveis
+description: Padrões de frontend — cores, ícones (expo-symbols + vector-icons) e componentes reutilizáveis
 globs: "**/*.tsx, **/*.ts"
 alwaysApply: false
 ---
@@ -76,6 +76,28 @@ const tint = Colors[theme].tint;
 2. Usar o nome semântico (ex: `textLight`, `border`, `primary`)
 3. Referenciar pelo nome nos componentes
 4. **Contraste WCAG AA**: validar 4.5:1 (texto normal) ou 3:1 (texto grande) entre texto e fundo — ver design-system.mdc
+
+---
+
+## Ícones
+
+**expo-symbols** para navegação (tabs, header, botões genéricos). **@expo/vector-icons** (Ionicons ou MaterialCommunityIcons) para ícones específicos do app (paw, cart, heart, categorias).
+
+| Uso | Biblioteca | Exemplo |
+|-----|------------|---------|
+| Navegação (tabs, voltar, info) | `expo-symbols` | `SymbolView` |
+| Ícones de domínio (pet, carrinho, favorito) | `@expo/vector-icons` | `Ionicons`, `MaterialCommunityIcons` |
+
+```tsx
+// Navegação — expo-symbols
+import { SymbolView } from 'expo-symbols';
+<SymbolView name={{ ios: 'info.circle', android: 'info', web: 'info' }} size={24} tintColor={color} />
+
+// Ícones específicos — @expo/vector-icons
+import Ionicons from '@expo/vector-icons/Ionicons';
+<Ionicons name="paw" size={24} color={color} />
+<Ionicons name="cart" size={24} color={color} />
+```
 
 ---
 
