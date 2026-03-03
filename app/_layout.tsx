@@ -69,7 +69,12 @@ function RootLayoutNav() {
   return (
     <>
       <StatusBar style="dark" />
-      <Stack>
+      <Stack
+        screenOptions={{
+          animation: "fade",
+          animationDuration: 250,
+        }}
+      >
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

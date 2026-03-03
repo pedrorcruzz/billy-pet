@@ -5,7 +5,13 @@ export default function AuthLayout() {
   return (
     <>
       <StatusBar style="dark" />
-      <Stack screenOptions={{ headerShown: false }}>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          animation: "fade",
+          animationDuration: 250,
+        }}
+      >
         <Stack.Screen name="login" options={{ title: "Entrar" }} />
         <Stack.Screen name="register" options={{ title: "Cadastro" }} />
         <Stack.Screen name="forgot-password" options={{ title: "Recuperar senha" }} />
