@@ -138,14 +138,14 @@ raiz-do-projeto/
 | `components/` | Componentes React — genéricos na raiz, domínios em subpastas (auth/, product/, cart/) |
 | `contexts/` | React Context — estado global (ex: `AuthContext.tsx`). Consome services. |
 | `hooks/` | Hooks que padronizam acesso ao Context (ex: `useAuth.ts`). Evitam `useContext` direto nos componentes. |
-| `services/` | Dados mockados e futuramente chamadas à API (ex: `auth/authService.ts`). Context consome services. |
+| `services/` | Dados mockados e futuramente chamadas à API (ex: `authService.ts`). Context consome services. |
 | `utils/` | Utilitários — validação, formatação, helpers (ex: `utils/authUtils.ts`) |
 
 ### Fluxo por domínio (ex: Auth)
 
 | Camada | Arquivo | Responsabilidade |
 |--------|---------|------------------|
-| **services/** | `auth/authService.ts` | Dados mockados, login/logout. Futuramente: chamadas à API. |
+| **services/** | `authService.ts` | Dados mockados, login/logout. Futuramente: chamadas à API. |
 | **contexts/** | `AuthContext.tsx` | Consome o service. Fornece estado (isAuthenticated, login, logout) ao React. |
 | **hooks/** | `useAuth.ts` | `useContext(AuthContext)` — facilita e padroniza acesso ao Context. |
 | **utils/** | `authUtils.ts` | Regras de validação (usuário, email, senha). |
@@ -155,7 +155,7 @@ raiz-do-projeto/
 
 | Escopo | services/ | contexts/ | hooks/ | utils/ | components/ |
 |--------|-----------|-----------|--------|--------|-------------|
-| Auth | `auth/authService.ts` | `AuthContext.tsx` | `useAuth.ts`, `useDebouncedValidation.ts` | `authUtils.ts` | `auth/LoginForm.tsx` |
+| Auth | `authService.ts` | `AuthContext.tsx` | `useAuth.ts`, `useDebouncedValidation.ts` | `authUtils.ts` | `auth/LoginForm.tsx` |
 | Produto | `productService.ts` | — | `useProducts.ts` | `product/formatPrice.ts` | `product/ProductCard.tsx` |
 
 ---

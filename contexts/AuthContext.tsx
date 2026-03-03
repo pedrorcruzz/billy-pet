@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 
-import { authService } from '@/services/auth/authService';
+import { authService } from '@/services/authService';
 
 export interface AuthContextValue {
   isAuthenticated: boolean;

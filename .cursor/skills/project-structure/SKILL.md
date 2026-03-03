@@ -33,7 +33,7 @@ raiz-do-projeto/
 | **components/** | Componentes React reutilizáveis. Domínios em subpastas: `auth/`, `product/`, `cart/` | Estado global, chamadas à API |
 | **contexts/** | Providers de React Context (AuthContext, CartContext) | Hooks, services, componentes |
 | **hooks/** | Custom hooks (`useAuth`, `useDebouncedValidation`) | Context providers, services |
-| **services/** | Dados mockados, chamadas à API (`auth/authService.ts`) | Componentes, utils genéricos |
+| **services/** | Dados mockados, chamadas à API (`authService.ts`) | Componentes, utils genéricos |
 | **utils/** | Funções puras: formatação, validação, helpers (`authUtils.ts`) | Estado, chamadas à API |
 | **constants/** | Cores, tokens, valores fixos | Lógica |
 
@@ -65,7 +65,7 @@ components/ ──► hooks/ ──► contexts/ ──► services/
 
 | Pasta | Arquivo | Responsabilidade |
 |-------|---------|------------------|
-| services/ | `auth/authService.ts` | Login/logout mock, futuramente API |
+| services/ | `authService.ts` | Login/logout mock, futuramente API |
 | utils/ | `authUtils.ts` | Regras de validação (usuário, email, senha) |
 | contexts/ | `AuthContext.tsx` | Estado isAuthenticated, funções login/logout |
 | hooks/ | `useAuth.ts` | `useContext(AuthContext)` |
