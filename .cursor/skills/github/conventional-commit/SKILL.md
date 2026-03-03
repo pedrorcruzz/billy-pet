@@ -27,18 +27,18 @@ Corpo opcional.
 
 ## Prefixos (tipos)
 
-| Prefixo | Uso |
-|---------|-----|
-| **feat** | Nova funcionalidade — adiciona algo ao usuário |
-| **fix** | Correção de bug — resolve problema no código |
-| **docs** | Documentação — altera apenas .md, comentários, README |
-| **style** | Formatação — espaços, vírgulas, aspas; não altera lógica |
-| **refactor** | Refatoração — melhora código sem mudar comportamento |
-| **perf** | Performance — otimização de velocidade ou memória |
-| **test** | Testes — adiciona ou ajusta testes |
-| **build** | Build — dependências, scripts, config de compilação |
-| **ci** | CI/CD — pipelines, workflows, integração contínua |
-| **chore** | Tarefas gerais — lint, config, coisas que não encaixam acima |
+| Prefixo      | Uso                                                          |
+| ------------ | ------------------------------------------------------------ |
+| **feat**     | Nova funcionalidade — adiciona algo ao usuário               |
+| **fix**      | Correção de bug — resolve problema no código                 |
+| **docs**     | Documentação — altera apenas .md, comentários, README        |
+| **style**    | Formatação — espaços, vírgulas, aspas; não altera lógica     |
+| **refactor** | Refatoração — melhora código sem mudar comportamento         |
+| **perf**     | Performance — otimização de velocidade ou memória            |
+| **test**     | Testes — adiciona ou ajusta testes                           |
+| **build**    | Build — dependências, scripts, config de compilação          |
+| **ci**       | CI/CD — pipelines, workflows, integração contínua            |
+| **chore**    | Tarefas gerais — lint, config, coisas que não encaixam acima |
 
 ---
 
@@ -66,3 +66,5 @@ Usar quando fizer sentido: `feat(cart)`, `fix(product-detail)`, `docs(design-sys
 ## Breaking change
 
 Para mudanças incompatíveis: `feat!: remove API antiga` ou `BREAKING CHANGE:` no corpo.
+
+---
