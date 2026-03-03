@@ -8,12 +8,13 @@ Billy Pet é um aplicativo de pet shop desenvolvido para a Faculdade CESMAC. Pro
 
 | Arquivo | Resumo |
 |---------|--------|
+| `auth-routes.md` | Cria ou modifica rotas com autenticação, proteção e fluxo de login via auth-routes-specialist |
 | `components.md` | Cria ou modifica componentes React Native seguindo o design system |
-| `git-commit.md` | Cria commits no padrão Conventional Commits via github-specialist |
 | `doc-design-system.md` | Gera documentação completa do design system Billy Pet via design-system-documenter |
+| `git-commit.md` | Cria commits no padrão Conventional Commits via github-specialist |
 | `readme.md` | Cria ou atualiza o README do projeto via github-specialist |
-| `test.md` | Cria ou debuga testes com Jest e Expo via testing-specialist |
 | `screen-workflow.md` | Cria, edita ou remove telas via frontend-specialist |
+| `test.md` | Cria ou debuga testes com Jest e Expo via testing-specialist |
 
 ## Instalação e uso
 
