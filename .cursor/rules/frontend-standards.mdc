@@ -139,7 +139,7 @@ raiz-do-projeto/
 | `contexts/` | React Context — estado global (ex: `AuthContext.tsx`). Consome services. |
 | `hooks/` | Hooks que padronizam acesso ao Context (ex: `useAuth.ts`). Evitam `useContext` direto nos componentes. |
 | `services/` | Dados mockados e futuramente chamadas à API (ex: `auth/authService.ts`). Context consome services. |
-| `utils/` | Utilitários — validação, formatação, helpers (ex: `utils/auth/authUtils.ts`) |
+| `utils/` | Utilitários — validação, formatação, helpers (ex: `utils/authUtils.ts`) |
 
 ### Fluxo por domínio (ex: Auth)
 
@@ -149,14 +149,14 @@ raiz-do-projeto/
 | **contexts/** | `AuthContext.tsx` | Consome o service. Fornece estado (isAuthenticated, login, logout) ao React. |
 | **hooks/** | `useAuth.ts` | `useContext(AuthContext)` — facilita e padroniza acesso ao Context. |
 | **services/** | `auth/validationService.ts` | Regras de validação (usuário, email, senha). |
-| **utils/** | `auth/authUtils.ts` | Re-export de validationService (legado). |
+| **utils/** | `authUtils.ts` | Re-export de validationService (legado). |
 | **components/** | `auth/LoginForm.tsx` | UI. Usa `useAuth()`, `validationService` e `useDebouncedValidation`. |
 
 ### Exemplo de arquivos
 
 | Escopo | services/ | contexts/ | hooks/ | utils/ | components/ |
 |--------|-----------|-----------|--------|--------|-------------|
-| Auth | `auth/authService.ts`, `auth/validationService.ts` | `AuthContext.tsx` | `useAuth.ts`, `useDebouncedValidation.ts` | `auth/authUtils.ts` (legado) | `auth/LoginForm.tsx` |
+| Auth | `auth/authService.ts`, `auth/validationService.ts` | `AuthContext.tsx` | `useAuth.ts`, `useDebouncedValidation.ts` | `authUtils.ts` (legado) | `auth/LoginForm.tsx` |
 | Produto | `productService.ts` | — | `useProducts.ts` | `product/formatPrice.ts` | `product/ProductCard.tsx` |
 
 ---
