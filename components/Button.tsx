@@ -1,5 +1,6 @@
-import { Pressable, StyleSheet } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Text, useThemeColor } from "@/components/Themed";
 import { Tokens } from "@/constants/Tokens";
 
@@ -7,6 +8,8 @@ export interface ButtonProps {
   title: string;
   onPress: () => void;
   disabled?: boolean;
+  /** Exibe spinner em vez do texto, fundo cinza */
+  loading?: boolean;
   variant?: "primary" | "secondary";
   accessibilityLabel?: string;
 }
@@ -15,14 +18,22 @@ export function Button({
   title,
   onPress,
   disabled = false,
+  loading = false,
   variant = "primary",
   accessibilityLabel,
 }: ButtonProps) {
   const tintColor = useThemeColor("tint");
   const onTintColor = useThemeColor("onTint");
   const textColor = useThemeColor("text");
+  const loadingBgColor = useThemeColor("inputBorder");
 
-  const backgroundColor = variant === "primary" ? tintColor : "transparent";
+  const isDisabled = disabled || loading;
+  const backgroundColor =
+    loading && variant === "primary"
+      ? loadingBgColor
+      : variant === "primary"
+        ? tintColor
+        : "transparent";
   const color = variant === "primary" ? onTintColor : textColor;
 
   return (
@@ -30,14 +41,21 @@ export function Button({
       style={[
         styles.button,
         { backgroundColor },
-        disabled && styles.disabled,
+        isDisabled && styles.disabled,
       ]}
       onPress={onPress}
-      disabled={disabled}
+      disabled={isDisabled}
       accessibilityRole="button"
       accessibilityLabel={accessibilityLabel ?? title}
+      accessibilityState={{ busy: loading }}
     >
-      <Text style={[styles.buttonText, { color }]}>{title}</Text>
+      {loading ? (
+        <View style={styles.spinnerWrapper}>
+          <LoadingSpinner size="small" color={onTintColor} inline />
+        </View>
+      ) : (
+        <Text style={[styles.buttonText, { color }]}>{title}</Text>
+      )}
     </Pressable>
   );
 }
@@ -53,6 +71,9 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: Tokens.typography.body,
     fontWeight: Tokens.typography.fontWeight.bold,
+  },
+  spinnerWrapper: {
+    padding: Tokens.spacing.xs,
   },
   disabled: {
     opacity: 0.5,

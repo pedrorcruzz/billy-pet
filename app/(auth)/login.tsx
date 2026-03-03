@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { LoginForm, SocialLoginButtons } from "@/components/auth";
 import { Text, useThemeColor } from "@/components/Themed";
 import { useAuth } from "@/hooks/useAuth";
+import { authService } from "@/services/authService";
 import { Tokens } from "@/constants/Tokens";
 
 export default function LoginScreen() {
@@ -29,12 +30,10 @@ export default function LoginScreen() {
         <LoginForm
           onForgotPassword={() => router.push("/(auth)/forgot-password")}
           onLogin={async (emailOrUser, password) => {
-            const success = login(emailOrUser, password);
-            if (success) {
-              router.replace("/(tabs)");
-            } else {
-              throw new Error("Credenciais inválidas");
-            }
+            await new Promise((r) => setTimeout(r, 1000));
+            const isValid = authService.login(emailOrUser, password);
+            if (!isValid) throw new Error("Credenciais inválidas");
+            login(emailOrUser, password);
           }}
         />
 

@@ -98,8 +98,9 @@ export function LoginForm({
 
       <View style={styles.buttonWrapper}>
         <Button
-          title={loading ? 'Entrando...' : 'Entrar'}
+          title="Entrar"
           onPress={handleSubmit}
+          loading={loading}
           disabled={loading}
           accessibilityLabel="Entrar"
         />
