@@ -1,7 +1,3 @@
-/**
- * Hook para validação com debounce — exibe erro após 500ms sem digitar
- */
-
 import { useCallback, useEffect, useRef } from 'react';
 
 type ValidateFn = (value: string) => string | null | undefined;

@@ -13,7 +13,6 @@ import { AuthInput } from './AuthInput';
 export interface LoginFormProps {
   onLogin?: (emailOrUser: string, password: string) => void | Promise<void>;
   onForgotPassword?: () => void;
-  /** Mensagem de erro do servidor (ex: credenciais inválidas) */
   serverError?: string;
 }
 

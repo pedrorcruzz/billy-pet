@@ -20,9 +20,10 @@
 - **Arquivos `.md` e comentários**: em **português (pt-BR)**
 - **Estrutura de pastas e código**: em **inglês** (nomes de arquivos, pastas, variáveis, funções, componentes)
 - **Clean Code**: código autoexplicativo; comentários apenas quando necessário
-  - Comentar o *porquê*, não o *como*
+  - Comentar o _porquê_, não o _como_
   - Comentários sempre em **pt-BR**
   - Evitar comentários óbvios; preferir nomes claros de variáveis e funções
+  - **Não usar comentários desnecessários** — nomes de funções, variáveis e props devem ser autoexplicativos; omitir comentários que apenas repetem o que o nome já deixa óbvio
 
 ---
 
@@ -41,22 +42,26 @@ constants/              # Cores e constantes
 ## Padrões de Código
 
 ### Componentes
+
 - Usar **componentes funcionais** com hooks
 - Preferir `const` para declaração de componentes
 - Extrair lógica reutilizável em **custom hooks**
 - Manter componentes pequenos e focados
 
 ### Estilização
+
 - Usar `StyleSheet` do React Native
 - Centralizar cores em `constants/Colors.ts`
 - Evitar estilos inline; preferir objetos de estilo nomeados
 
 ### Rotas (Expo Router)
+
 - Rotas em `app/` com convenção de pastas
 - Grupos com `(nome)` para organização sem afetar a URL
 - Layouts compartilhados em `_layout.tsx`
 
 ### Tipagem
+
 - Tipar props com interfaces ou types
 - Evitar `any`; usar `unknown` quando o tipo for incerto
 - Exportar tipos compartilhados em arquivos dedicados
@@ -66,6 +71,7 @@ constants/              # Cores e constantes
 ## Domínio do Negócio
 
 O app trata **apenas** de produtos para pets:
+
 - Alimentação (ração, petiscos)
 - Acessórios (coleiras, caminhas, comedouros)
 - Higiene e saúde

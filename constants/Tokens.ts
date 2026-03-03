@@ -1,9 +1,3 @@
-/**
- * Design Tokens — Billy Pet
- * Modelo baseado em tokens. WCAG 2.0 AA.
- * @see .cursor/rules/design-system.mdc
- */
-
 export const Tokens = {
   typography: {
     body: 16,

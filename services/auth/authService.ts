@@ -1,8 +1,3 @@
-/**
- * Serviço de autenticação — Billy Pet
- * Dados mockados. Futuramente: chamadas à API.
- */
-
 const MOCK_CREDENTIALS = {
   email: "pedro@gmail.com",
   user: "pedro",

@@ -7,11 +7,8 @@ import { AUTH_HINTS, REGISTER_HINTS } from '@/utils/authUtils';
 export type AuthHintType = 'username' | 'password' | 'both';
 
 export interface AuthHintBoxProps {
-  /** Tipo de dica (auth: login) */
   type?: AuthHintType;
-  /** Mensagem única — exibe em vez das regras (ex: erro de validação) */
   message?: string;
-  /** Regras de cadastro (name, email, password) em vez de auth hints */
   variant?: 'auth' | 'register';
 }
 

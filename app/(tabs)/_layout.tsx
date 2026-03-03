@@ -20,7 +20,6 @@ const cartIconCircleStyle = {
 const TAB_BAR_HEIGHT = 70;
 const tabBarStyle = {
   position: "absolute" as const,
-  // bottom: Tokens.spacing.xl,
   height: TAB_BAR_HEIGHT,
   borderRadius: TAB_BAR_HEIGHT / 2,
   backgroundColor: Colors.light.background,

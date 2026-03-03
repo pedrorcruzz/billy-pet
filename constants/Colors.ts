@@ -15,21 +15,13 @@ export default {
     tint: greenSecondary,
     secondary: greenSecondary,
     card: brownCard,
-    /** Ícone da tab não selecionado */
     tabIconDefault: grayDark,
-    /** Ícone da tab selecionado (destaque) */
     tabIconSelected: greenSecondary,
-    /** Texto de dica/hint (ex: regras de senha) */
     hint: grayHint,
-    /** Borda de inputs */
     inputBorder: grayBorder,
-    /** Mensagens de erro (validação, login/cadastro falhou) */
     error: redError,
-    /** Texto em botões primários (ex: fundo verde) */
     onTint: whiteLight,
-    /** Linha separadora/divider */
     separator: graySeparator,
-    /** Cor de sombra (tab bar, cards) */
     shadow: shadowBlack,
   },
 };

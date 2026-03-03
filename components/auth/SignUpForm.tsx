@@ -18,7 +18,6 @@ import { SocialLoginButtons } from './SocialLoginButtons';
 export interface SignUpFormProps {
   onSignUp?: (username: string, email: string, password: string) => void | Promise<void>;
   onGoToLogin?: () => void;
-  /** Mensagem de erro do servidor */
   serverError?: string;
   onGooglePress?: () => void;
   onApplePress?: () => void;

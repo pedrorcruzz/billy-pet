@@ -74,7 +74,11 @@ Ordem lógica de foco. `accessibilityOrder` quando necessário.
 
 ### 3.4 Formulários
 
-`accessibilityLabel` em `TextInput`. `accessibilityHint` para instruções. Mensagens de erro claras.
+- **Campo obrigatório**: asterisco (*) ao lado do label; cor `error`; toque no * explica "campo obrigatório"; `accessibilityLabel` "Campo obrigatório. Toque para mais informações."
+- **Labels**: `accessibilityLabel` no TextInput com o nome do campo
+- **Erros**: `accessibilityHint` com mensagem; texto abaixo do input (cor `error`)
+- **Hints**: AuthHintBox com regras de validação; AUTH_HINTS e REGISTER_HINTS em `utils/authUtils.ts`
+- **Validação**: authUtils — nome ≥2 chars; usuário sem espaço, ≤20 chars; senha ≥4 chars, 1 maiúscula, 1 símbolo; e-mail com @ e domínio
 
 ### 3.5 accessibilityProps
 

@@ -49,7 +49,6 @@ export default function RegisterScreen() {
         <SignUpForm
           onGoToLogin={() => router.back()}
           onSignUp={async (username, email, password) => {
-            // Mock: cadastro bem-sucedido → faz login automaticamente
             const success = login(email, password);
             if (success) {
               router.replace("/(tabs)");

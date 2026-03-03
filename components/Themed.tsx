@@ -1,6 +1,3 @@
-/**
- * Componentes com cores do design system — Billy Pet
- */
 import { Text as DefaultText, View as DefaultView } from 'react-native';
 
 import Colors from '@/constants/Colors';

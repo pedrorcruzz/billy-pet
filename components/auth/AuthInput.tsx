@@ -21,14 +21,10 @@ export interface AuthInputTrailingLink {
 
 export interface AuthInputProps extends Omit<TextInputProps, 'style'> {
   label: string;
-  /** Ícone à esquerda — person (perfil), mail (e-mail) ou lock-closed (senha). Outline verde. */
   labelIcon?: AuthInputLabelIcon;
   error?: string;
-  /** Campo de senha: exibe toggle mostrar/ocultar */
   type?: 'text' | 'password';
-  /** Link à direita (ex: "Esqueceu?") — só para type="password" */
   trailingLink?: AuthInputTrailingLink;
-  /** Exibe * vermelho à direita para indicar campo obrigatório */
   required?: boolean;
 }
 

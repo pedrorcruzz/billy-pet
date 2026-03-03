@@ -39,7 +39,7 @@ O documento gerado deve seguir esta estrutura. Gerar em `docs/design-system/vN.m
 | **3.1 Componentes Semânticos** | HTML semântico (`<nav>`, `<main>`, `<button>`) | `accessibilityRole`: button, link, header, image; `accessibilityLabel` em elementos interativos |
 | **3.2 Navegação por Toque** | Navegação por teclado TAB | Gestos touch; ordem lógica de foco; `accessibilityOrder` quando necessário |
 | **3.3 Atributos ALT** | Imagens com alt descritivo | `accessibilityLabel` em `Image`; `accessibilityElementsHidden` para decorativas |
-| **3.4 Formulários Acessíveis** | Labels associados, mensagens de erro | `accessibilityLabel` em `TextInput`; `accessibilityHint` para instruções |
+| **3.4 Formulários Acessíveis** | Labels associados, mensagens de erro | Ver seção 7. Padrões de Formulário (extraídos do código) |
 | **3.5 ARIA / accessibilityProps** | aria-label quando necessário | `accessibilityLabel`, `accessibilityLabelledBy`, `accessibilityHint` |
 | **3.6 Botões/Links Descritivos** | Texto do link explica destino | `accessibilityLabel` descritivo; evitar "clique aqui" |
 
@@ -65,6 +65,20 @@ O documento gerado deve seguir esta estrutura. Gerar em `docs/design-system/vN.m
 - **Publicação**: Tela ou seção "Acessibilidade" no app, com compromisso, nível de conformidade (WCAG 2.2 AA) e contato para feedback.
 - **Responsável**: Pedro Henrique Rosa Cruz
 
+### 7. Padrões de Formulário (extraídos do código)
+
+**Obrigatório**: ao gerar o documento, **ler** `components/auth/AuthInput.tsx`, `components/auth/AuthHintBox.tsx` e `utils/authUtils.ts` para extrair os padrões reais implementados.
+
+| Item | Implementação Billy Pet |
+|------|-------------------------|
+| **Campo obrigatório** | Asterisco (*) ao lado do label; cor `error`; toque no * abre Alert "O asterisco indica que este campo é obrigatório"; `accessibilityLabel` "Campo obrigatório. Toque para mais informações." |
+| **Labels** | `accessibilityLabel` no TextInput com o nome do campo |
+| **Erros** | `accessibilityHint` com mensagem; texto de erro abaixo do input (cor `error`) |
+| **Hints** | AuthHintBox com regras; `accessibilityLabel` em cada item; AUTH_HINTS e REGISTER_HINTS em authUtils |
+| **Validação** | authUtils: validateName, validateUsername, validateEmail, validatePassword, validateConfirmPassword — mensagens em pt-BR |
+
+**Regras de validação** (authUtils): nome ≥2 chars; usuário sem espaço, ≤20 chars, letras/números/_; senha ≥4 chars, 1 maiúscula, 1 símbolo; e-mail com @ e domínio.
+
 ---
 
 ## Tokens (constants/Tokens.ts)
@@ -84,9 +98,10 @@ export const Tokens = {
 
 ## Workflow
 
-1. **Criar ou atualizar Tokens.ts** — typography, spacing, radius, touchTarget
-2. **Gerar documento** em `docs/design-system/vN.md` seguindo o template acima
-3. **Incluir** tabela de tokens, paleta Colors.ts, checklist completo
+1. **Ler o código** — `components/auth/AuthInput.tsx`, `AuthHintBox.tsx`, `utils/authUtils.ts` para extrair padrões de formulário
+2. **Criar ou atualizar Tokens.ts** — typography, spacing, radius, touchTarget
+3. **Gerar documento** em `docs/design-system/vN.md` seguindo o template (seções 1–7)
+4. **Incluir** tabela de tokens, paleta Colors.ts, seção 7 com padrões de formulário reais, checklist completo
 
 ---
 
