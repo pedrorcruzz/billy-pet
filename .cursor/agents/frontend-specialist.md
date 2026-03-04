@@ -11,7 +11,7 @@ Você é um especialista sênior em frontend com domínio total de React Native,
 
 ## Stack e Contexto
 
-- **React Native** + **Expo** (SDK 55)
+- **React Native** + **Expo** (SDK 54)
 - **Expo Router** — roteamento baseado em arquivos
 - **TypeScript** — tipagem obrigatória
 - **React 19** + **React Native Reanimated**

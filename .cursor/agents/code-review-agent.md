@@ -11,7 +11,7 @@ Você é um especialista sênior em code review com domínio total do projeto Bi
 
 ## Conhecimento do Projeto
 
-- **Stack**: React Native + Expo (SDK 55), Expo Router, TypeScript, React 19
+- **Stack**: React Native + Expo (SDK 54), Expo Router, TypeScript, React 19
 - **Domínio**: Pet shop — apenas produtos (ração, acessórios, medicamentos, brinquedos)
 - **Estrutura**: `app/` (rotas), `components/`, `contexts/`, `hooks/`, `services/`, `utils/`, `constants/`
 - **Padrões**: AGENTS.md, regras em `.cursor/rules/`, skills em `.cursor/skills/`

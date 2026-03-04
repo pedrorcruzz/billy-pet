@@ -8,7 +8,7 @@
 
 ## Stack Tecnológica
 
-- **React Native** + **Expo** (SDK 55)
+- **React Native** + **Expo** (SDK 54)
 - **Expo Router** — roteamento baseado em arquivos
 - **TypeScript** — tipagem obrigatória
 - **React 19** + **React Native Reanimated**
@@ -93,10 +93,9 @@ Não incluir: serviços (banho, tosa), adoção de animais ou outros segmentos f
 
 ## Boas Práticas
 
-1. **Performance**: usar `React.memo` em listas longas; evitar re-renders desnecessários
-2. **Acessibilidade**: incluir `accessibilityLabel` em elementos interativos
-3. **Internacionalização**: preparar textos para futura tradução (i18n)
-4. **Estado**: preferir estado local; considerar Context ou Zustand para estado global (carrinho, usuário)
+1. **Acessibilidade**: incluir `accessibilityLabel` em elementos interativos
+2. **Internacionalização**: preparar textos para futura tradução (i18n)
+3. **Estado**: preferir estado local; considerar Context ou Zustand para estado global (carrinho, usuário)
 
 ---
 
