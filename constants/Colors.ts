@@ -6,6 +6,7 @@ const grayHint = "#6B7280";
 const grayTabIcon = "#717171";
 const grayBorder = "#9CA3AF";
 const graySeparator = "#EEEEEE";
+const grayCarouselDot = "#B3B3B3";
 const redError = "#B91C1C";
 const shadowBlack = "#000";
 
@@ -23,6 +24,8 @@ export default {
     error: redError,
     onTint: whiteLight,
     separator: graySeparator,
+    carouselDotActive: whiteLight,
+    carouselDotInactive: grayCarouselDot,
     shadow: shadowBlack,
   },
 };

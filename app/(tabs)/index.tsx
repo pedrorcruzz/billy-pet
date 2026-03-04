@@ -1,31 +1,48 @@
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 
+import { PromoCarousel } from "@/components/PromoCarousel";
 import { Text, View, useThemeColor } from "@/components/Themed";
+import { Tokens } from "@/constants/Tokens";
 
-export default function TabOneScreen() {
+const PROMO_CARDS = [
+  require("@/assets/cards/card-1.png"),
+  require("@/assets/cards/card-2.png"),
+  require("@/assets/cards/card-3.png"),
+];
+
+export default function HomeScreen() {
   const separatorColor = useThemeColor("separator");
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tela Inicio</Text>
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={styles.content}
+      showsVerticalScrollIndicator={false}
+    >
+      <PromoCarousel items={PROMO_CARDS} />
       <View style={[styles.separator, { backgroundColor: separatorColor }]} />
-    </View>
+      <Text style={styles.title}>Tela Início</Text>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+  },
+  content: {
+    paddingTop: Tokens.spacing.lg,
+    paddingBottom: Tokens.spacing.xl,
   },
   title: {
-    fontSize: 20,
-    fontWeight: "bold",
+    fontSize: Tokens.typography.h3,
+    fontWeight: Tokens.typography.fontWeight.bold,
+    paddingHorizontal: Tokens.spacing.lg,
+    marginTop: Tokens.spacing.lg,
   },
   separator: {
-    marginVertical: 30,
+    marginHorizontal: Tokens.spacing.lg,
+    marginVertical: Tokens.spacing.md,
     height: 1,
-    width: "80%",
   },
 });
