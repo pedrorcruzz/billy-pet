@@ -22,8 +22,8 @@ export function Button({
   variant = "primary",
   accessibilityLabel,
 }: ButtonProps) {
-  const tintColor = useThemeColor("tint");
-  const onTintColor = useThemeColor("onTint");
+  const buttonPrimaryColor = useThemeColor("buttonPrimary");
+  const onButtonPrimaryColor = useThemeColor("onButtonPrimary");
   const textColor = useThemeColor("text");
   const loadingBgColor = useThemeColor("inputBorder");
   const viewMoreColor = useThemeColor("viewMoreLink");
@@ -33,11 +33,11 @@ export function Button({
     loading && variant === "primary"
       ? loadingBgColor
       : variant === "primary"
-        ? tintColor
+        ? buttonPrimaryColor
         : "transparent";
   const color =
     variant === "primary"
-      ? onTintColor
+      ? onButtonPrimaryColor
       : variant === "viewMore"
         ? viewMoreColor
         : textColor;
@@ -57,7 +57,7 @@ export function Button({
     >
       {loading ? (
         <View style={styles.spinnerWrapper}>
-          <LoadingSpinner size="small" color={onTintColor} inline />
+          <LoadingSpinner size="small" color={onButtonPrimaryColor} inline />
         </View>
       ) : (
         <Text style={[styles.buttonText, { color }]}>{title}</Text>

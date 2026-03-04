@@ -25,6 +25,10 @@ export default {
     inputBorder: grayBorder,
     error: redError,
     onTint: whiteLight,
+    /** Cor de fundo dos botões primários (Entrar, Cadastrar, etc.) */
+    buttonPrimary: greenSecondary,
+    /** Cor do texto nos botões primários */
+    onButtonPrimary: whiteLight,
     separator: graySeparator,
     carouselDotActive: whiteLight,
     carouselDotInactive: grayCarouselDot,
