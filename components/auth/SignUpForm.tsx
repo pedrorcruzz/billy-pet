@@ -1,22 +1,26 @@
-import { useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { useState } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
 
-import { Button } from '@/components/Button';
-import { Text, useThemeColor } from '@/components/Themed';
-import { Tokens } from '@/constants/Tokens';
-import { useDebouncedValidation } from '@/hooks/useDebouncedValidation';
+import { Button } from "@/components/Button";
+import { Text, useThemeColor } from "@/components/Themed";
+import { Tokens } from "@/constants/Tokens";
+import { useDebouncedValidation } from "@/hooks/useDebouncedValidation";
 import {
   validateUsername,
   validatePassword,
   validateEmail,
   validateConfirmPassword,
-} from '@/utils/authUtils';
+} from "@/utils/authUtils";
 
-import { AuthInput } from './AuthInput';
-import { SocialLoginButtons } from './SocialLoginButtons';
+import { AuthInput } from "./AuthInput";
+import { SocialLoginButtons } from "./SocialLoginButtons";
 
 export interface SignUpFormProps {
-  onSignUp?: (username: string, email: string, password: string) => void | Promise<void>;
+  onSignUp?: (
+    username: string,
+    email: string,
+    password: string,
+  ) => void | Promise<void>;
   onGoToLogin?: () => void;
   serverError?: string;
   onGooglePress?: () => void;
@@ -32,10 +36,10 @@ export function SignUpForm({
   onApplePress,
   onFacebookPress,
 }: SignUpFormProps) {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState<{
     username?: string;
     email?: string;
@@ -50,10 +54,10 @@ export function SignUpForm({
     setErrors((e) => ({ ...e, [key]: err }));
   };
 
-  const tintColor = useThemeColor('tint');
-  const errorColor = useThemeColor('error');
-  const hintColor = useThemeColor('hint');
-  const lineColor = useThemeColor('inputBorder');
+  const tintColor = useThemeColor("tint");
+  const errorColor = useThemeColor("error");
+  const hintColor = useThemeColor("hint");
+  const lineColor = useThemeColor("inputBorder");
 
   const handleSubmit = async () => {
     const newErrors: typeof errors = {};
@@ -65,12 +69,12 @@ export function SignUpForm({
     newErrors.password = passwordErr ?? undefined;
 
     const confirmErr = !confirmPassword
-      ? 'Confirme sua senha'
+      ? "Confirme sua senha"
       : validateConfirmPassword(password, confirmPassword);
     newErrors.confirmPassword = confirmErr ?? undefined;
 
     const cleanErrors = Object.fromEntries(
-      Object.entries(newErrors).filter(([, v]) => v != null)
+      Object.entries(newErrors).filter(([, v]) => v != null),
     ) as typeof errors;
 
     setErrors(cleanErrors);
@@ -82,14 +86,15 @@ export function SignUpForm({
     } catch {
       setErrors((e) => ({
         ...e,
-        password: serverError || 'Erro ao cadastrar. Tente novamente.',
+        password: serverError || "Erro ao cadastrar. Tente novamente.",
       }));
     } finally {
       setLoading(false);
     }
   };
 
-  const displayError = serverError && !errors.password ? serverError : undefined;
+  const displayError =
+    serverError && !errors.password ? serverError : undefined;
 
   return (
     <View style={styles.container}>
@@ -102,8 +107,8 @@ export function SignUpForm({
         onChangeText={(t) => {
           setUsername(t);
           setErrors((e) => ({ ...e, username: undefined }));
-          debouncedValidate('username', t, validateUsername, (err) =>
-            setError('username', err)
+          debouncedValidate("username", t, validateUsername, (err) =>
+            setError("username", err),
           );
         }}
         error={errors.username}
@@ -120,8 +125,8 @@ export function SignUpForm({
         onChangeText={(t) => {
           setEmail(t);
           setErrors((e) => ({ ...e, email: undefined }));
-          debouncedValidate('email', t, validateEmail, (err) =>
-            setError('email', err)
+          debouncedValidate("email", t, validateEmail, (err) =>
+            setError("email", err),
           );
         }}
         error={errors.email}
@@ -140,14 +145,14 @@ export function SignUpForm({
         onChangeText={(t) => {
           setPassword(t);
           setErrors((e) => ({ ...e, password: undefined }));
-          debouncedValidate('password', t, validatePassword, (err) =>
-            setError('password', err)
+          debouncedValidate("password", t, validatePassword, (err) =>
+            setError("password", err),
           );
           debouncedValidate(
-            'confirmPassword',
+            "confirmPassword",
             confirmPassword,
             (v) => validateConfirmPassword(t, v),
-            (err) => setError('confirmPassword', err)
+            (err) => setError("confirmPassword", err),
           );
         }}
         error={errors.password}
@@ -164,10 +169,10 @@ export function SignUpForm({
           setConfirmPassword(t);
           setErrors((e) => ({ ...e, confirmPassword: undefined }));
           debouncedValidate(
-            'confirmPassword',
+            "confirmPassword",
             t,
             (v) => validateConfirmPassword(password, v),
-            (err) => setError('confirmPassword', err)
+            (err) => setError("confirmPassword", err),
           );
         }}
         error={errors.confirmPassword}
@@ -182,7 +187,7 @@ export function SignUpForm({
 
       <View style={styles.buttonWrapper}>
         <Button
-          title={loading ? 'Cadastrando...' : 'Cadastrar'}
+          title={loading ? "Cadastrando..." : "Cadastrar"}
           onPress={handleSubmit}
           disabled={loading}
           accessibilityLabel="Cadastrar"
@@ -219,7 +224,7 @@ export function SignUpForm({
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
   },
   serverError: {
     fontSize: Tokens.typography.body,
@@ -230,8 +235,8 @@ const styles = StyleSheet.create({
     marginBottom: Tokens.spacing.md,
   },
   dividerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: Tokens.spacing.lg,
   },
   dividerLine: {
@@ -245,8 +250,8 @@ const styles = StyleSheet.create({
   },
   link: {
     minHeight: Tokens.touchTarget,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: Tokens.spacing.md,
   },
   linkText: {

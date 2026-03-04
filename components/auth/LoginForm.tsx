@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Button } from '@/components/Button';
-import { Tokens } from '@/constants/Tokens';
-import { useDebouncedValidation } from '@/hooks/useDebouncedValidation';
+import { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import { Button } from "@/components/Button";
+import { Tokens } from "@/constants/Tokens";
+import { useDebouncedValidation } from "@/hooks/useDebouncedValidation";
 import {
   validateEmailOrUser,
   validatePasswordRequired,
-} from '@/utils/authUtils';
+} from "@/utils/authUtils";
 
-import { AuthInput } from './AuthInput';
+import { AuthInput } from "./AuthInput";
 
 export interface LoginFormProps {
   onLogin?: (emailOrUser: string, password: string) => void | Promise<void>;
@@ -21,9 +21,12 @@ export function LoginForm({
   onForgotPassword,
   serverError,
 }: LoginFormProps) {
-  const [emailOrUser, setEmailOrUser] = useState('');
-  const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState<{ emailOrUser?: string; password?: string }>({});
+  const [emailOrUser, setEmailOrUser] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState<{
+    emailOrUser?: string;
+    password?: string;
+  }>({});
   const [loading, setLoading] = useState(false);
 
   const debouncedValidate = useDebouncedValidation(500);
@@ -46,7 +49,9 @@ export function LoginForm({
     try {
       await onLogin?.(emailOrUser.trim(), password);
     } catch {
-      setErrors({ password: 'E-mail/usuário ou senha inválidos. Tente novamente.' });
+      setErrors({
+        password: "E-mail/usuário ou senha inválidos. Tente novamente.",
+      });
     } finally {
       setLoading(false);
     }
@@ -64,8 +69,8 @@ export function LoginForm({
         onChangeText={(t) => {
           setEmailOrUser(t);
           setErrors((e) => ({ ...e, emailOrUser: undefined }));
-          debouncedValidate('emailOrUser', t, validateEmailOrUser, (err) =>
-            setError('emailOrUser', err)
+          debouncedValidate("emailOrUser", t, validateEmailOrUser, (err) =>
+            setError("emailOrUser", err),
           );
         }}
         error={errors.emailOrUser}
@@ -83,15 +88,15 @@ export function LoginForm({
         onChangeText={(t) => {
           setPassword(t);
           setErrors((e) => ({ ...e, password: undefined }));
-          debouncedValidate('password', t, validatePasswordRequired, (err) =>
-            setError('password', err)
+          debouncedValidate("password", t, validatePasswordRequired, (err) =>
+            setError("password", err),
           );
         }}
         error={displayError}
         placeholder="Digite sua senha"
         trailingLink={
           onForgotPassword
-            ? { text: 'Esqueceu?', onPress: onForgotPassword }
+            ? { text: "Esqueceu?", onPress: onForgotPassword }
             : undefined
         }
       />
@@ -111,7 +116,7 @@ export function LoginForm({
 
 const styles = StyleSheet.create({
   container: {
-    width: '100%',
+    width: "100%",
   },
   buttonWrapper: {
     marginBottom: Tokens.spacing.md,
