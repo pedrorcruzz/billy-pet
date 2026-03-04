@@ -18,7 +18,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_MARGIN = Tokens.spacing.md;
 const CARD_WIDTH = SCREEN_WIDTH - CARD_MARGIN * 2;
 const CARD_HEIGHT = 270;
-const AUTO_SCROLL_INTERVAL_MS = 4000;
+const AUTO_SCROLL_INTERVAL_MS = 5500;
 
 export interface PromoCarouselProps {
   items: ImageSourcePropType[];
@@ -31,7 +31,7 @@ export function PromoCarousel({ items, onCardPress }: PromoCarouselProps) {
   const activeIndexRef = useRef(0);
   const isUserScrolling = useRef(false);
   const scrollTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
-    undefined
+    undefined,
   );
 
   activeIndexRef.current = activeIndex;
@@ -49,7 +49,7 @@ export function PromoCarousel({ items, onCardPress }: PromoCarouselProps) {
         animated,
       });
     },
-    [itemWidth]
+    [itemWidth],
   );
 
   useEffect(() => {
