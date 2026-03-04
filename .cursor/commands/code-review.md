@@ -1,0 +1,1 @@
+Use o subagente **code-review-agent** para análise de código, code review, entender o projeto ou responder dúvidas sobre o codebase. O agente conhece todo o código, explica de forma simples e só altera arquivos após confirmação explícita do usuário.
