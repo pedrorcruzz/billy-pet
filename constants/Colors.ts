@@ -1,6 +1,7 @@
 const greenSecondary = "#497700";
 const brownCard = "#C25A14";
 const grayDark = "#2E2E2C";
+const grayBorderSubtle = "#D4D4D4";
 const whiteLight = "#FFF";
 const grayHint = "#6B7280";
 const grayTabIcon = "#717171";
@@ -27,5 +28,9 @@ export default {
     carouselDotActive: whiteLight,
     carouselDotInactive: grayCarouselDot,
     shadow: shadowBlack,
+    /** Cor para links "Ver mais ofertas", "Ver mais x", etc. */
+    viewMoreLink: brownCard,
+    /** Borda sutil em cards */
+    cardBorderSubtle: grayBorderSubtle,
   },
 };

@@ -10,7 +10,7 @@ export interface ButtonProps {
   disabled?: boolean;
   /** Exibe spinner em vez do texto, fundo cinza */
   loading?: boolean;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "viewMore";
   accessibilityLabel?: string;
 }
 
@@ -26,6 +26,7 @@ export function Button({
   const onTintColor = useThemeColor("onTint");
   const textColor = useThemeColor("text");
   const loadingBgColor = useThemeColor("inputBorder");
+  const viewMoreColor = useThemeColor("viewMoreLink");
 
   const isDisabled = disabled || loading;
   const backgroundColor =
@@ -34,7 +35,12 @@ export function Button({
       : variant === "primary"
         ? tintColor
         : "transparent";
-  const color = variant === "primary" ? onTintColor : textColor;
+  const color =
+    variant === "primary"
+      ? onTintColor
+      : variant === "viewMore"
+        ? viewMoreColor
+        : textColor;
 
   return (
     <Pressable

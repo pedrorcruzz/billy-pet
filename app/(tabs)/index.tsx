@@ -1,6 +1,9 @@
+import { useRouter } from "expo-router";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { CategoryGrid } from "@/components/CategoryGrid";
+import { Offer } from "@/components/OffersGrid";
+import { OffersGrid } from "@/components/OffersGrid";
 import { PromoCarousel } from "@/components/PromoCarousel";
 import { Text, useThemeColor } from "@/components/Themed";
 import Colors from "@/constants/Colors";
@@ -20,7 +23,46 @@ const CATEGORIES = [
   { title: "Higiene", source: require("@/assets/categories/cama.png") },
 ];
 
+const OFFERS: Offer[] = [
+  {
+    id: "1",
+    name: "Ração Premium para Gatos",
+    price: 89.9,
+    oldPrice: 119.9,
+    source: require("@/assets/offers/racao.png"),
+  },
+  {
+    id: "2",
+    name: "Osso Natural para Cães",
+    price: 24.9,
+    oldPrice: 34.9,
+    source: require("@/assets/offers/osso.png"),
+  },
+  {
+    id: "3",
+    name: "Brinquedo Interativo",
+    price: 39.9,
+    oldPrice: 49.9,
+    source: require("@/assets/offers/gato1.png"),
+  },
+  {
+    id: "4",
+    name: "Cama Confortável",
+    price: 129.9,
+    oldPrice: 159.9,
+    source: require("@/assets/offers/gato2.png"),
+  },
+  {
+    id: "5",
+    name: "Petisco Premium",
+    price: 19.9,
+    oldPrice: 24.9,
+    source: require("@/assets/offers/racao.png"),
+  },
+];
+
 export default function HomeScreen() {
+  const router = useRouter();
   const separatorColor = useThemeColor("separator");
 
   return (
@@ -46,6 +88,10 @@ export default function HomeScreen() {
         <CategoryGrid items={CATEGORIES} />
       </View>
       <View style={[styles.separator, { backgroundColor: separatorColor }]} />
+      <OffersGrid
+        offers={OFFERS}
+        onViewMore={() => router.push("/(tabs)/search")}
+      />
     </ScrollView>
   );
 }
@@ -56,7 +102,7 @@ const styles = StyleSheet.create({
   },
   content: {
     paddingTop: Tokens.spacing.lg,
-    paddingBottom: Tokens.spacing.xl,
+    paddingBottom: 120,
   },
   separator: {
     marginHorizontal: Tokens.spacing.lg,
