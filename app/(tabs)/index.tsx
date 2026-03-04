@@ -1,10 +1,16 @@
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
 
 import { CategoryGrid } from "@/components/CategoryGrid";
 import { Offer } from "@/components/OffersGrid";
 import { OffersGrid } from "@/components/OffersGrid";
 import { PromoCarousel } from "@/components/PromoCarousel";
+import {
+  SkeletonCategoryGrid,
+  SkeletonOffersGrid,
+  SkeletonPromoCarousel,
+} from "@/components/SkeletonPresets";
 import { Text, useThemeColor } from "@/components/Themed";
 import Colors from "@/constants/Colors";
 import { Tokens } from "@/constants/Tokens";
@@ -61,9 +67,17 @@ const OFFERS: Offer[] = [
   },
 ];
 
+const LOADING_DELAY_MS = 2500;
+
 export default function HomeScreen() {
   const router = useRouter();
   const separatorColor = useThemeColor("separator");
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const id = setTimeout(() => setIsLoading(false), LOADING_DELAY_MS);
+    return () => clearTimeout(id);
+  }, []);
 
   return (
     <ScrollView
@@ -71,27 +85,52 @@ export default function HomeScreen() {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      <PromoCarousel items={PROMO_CARDS} />
-      <View style={styles.separatorWithTitle}>
-        <View style={[styles.separatorLine, { backgroundColor: separatorColor }]} />
-        <View style={styles.categoriesTitleBadge}>
-          <Text
-            style={styles.categoriesTitleBadgeText}
-            color={Colors.light.onTint}
-          >
-            Categorias
-          </Text>
-        </View>
-        <View style={[styles.separatorLine, { backgroundColor: separatorColor }]} />
-      </View>
-      <View style={styles.categoriesWrapper}>
-        <CategoryGrid items={CATEGORIES} />
-      </View>
-      <View style={[styles.separator, { backgroundColor: separatorColor }]} />
-      <OffersGrid
-        offers={OFFERS}
-        onViewMore={() => router.push("/(tabs)/search")}
-      />
+      {isLoading ? (
+        <>
+          <SkeletonPromoCarousel />
+          <View style={styles.separatorWithTitle}>
+            <View style={[styles.separatorLine, { backgroundColor: separatorColor }]} />
+            <View style={styles.categoriesTitleBadge}>
+              <Text
+                style={styles.categoriesTitleBadgeText}
+                color={Colors.light.onTint}
+              >
+                Categorias
+              </Text>
+            </View>
+            <View style={[styles.separatorLine, { backgroundColor: separatorColor }]} />
+          </View>
+          <View style={styles.categoriesWrapper}>
+            <SkeletonCategoryGrid />
+          </View>
+          <View style={[styles.separator, { backgroundColor: separatorColor }]} />
+          <SkeletonOffersGrid />
+        </>
+      ) : (
+        <>
+          <PromoCarousel items={PROMO_CARDS} />
+          <View style={styles.separatorWithTitle}>
+            <View style={[styles.separatorLine, { backgroundColor: separatorColor }]} />
+            <View style={styles.categoriesTitleBadge}>
+              <Text
+                style={styles.categoriesTitleBadgeText}
+                color={Colors.light.onTint}
+              >
+                Categorias
+              </Text>
+            </View>
+            <View style={[styles.separatorLine, { backgroundColor: separatorColor }]} />
+          </View>
+          <View style={styles.categoriesWrapper}>
+            <CategoryGrid items={CATEGORIES} />
+          </View>
+          <View style={[styles.separator, { backgroundColor: separatorColor }]} />
+          <OffersGrid
+            offers={OFFERS}
+            onViewMore={() => router.push("/(tabs)/search")}
+          />
+        </>
+      )}
     </ScrollView>
   );
 }

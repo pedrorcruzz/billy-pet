@@ -7,10 +7,6 @@
     "icon": "./assets/images/splash-icon.png",
     "scheme": "billypet",
     "userInterfaceStyle": "automatic",
-    "androidStatusBar": {
-      "backgroundColor": "#FFFFFF",
-      "barStyle": "dark-content"
-    },
     "splash": {
       "image": "./assets/images/splash-icon.png",
       "resizeMode": "contain",

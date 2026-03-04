@@ -56,16 +56,18 @@ export function OfferCard({
         resizeMode="cover"
         accessibilityIgnoresInvertColors
       />
-      <Text style={[styles.name, { color: textColor }]} numberOfLines={2}>
-        {name}
-      </Text>
-      <View style={styles.priceRow}>
-        {formattedOldPrice != null && (
-          <Text style={[styles.oldPrice, { color: hintColor }]}>
-            {formattedOldPrice}
-          </Text>
-        )}
-        <Text style={[styles.price, { color: tintColor }]}>{formattedPrice}</Text>
+      <View style={styles.content}>
+        <Text style={[styles.name, { color: textColor }]} numberOfLines={2}>
+          {name}
+        </Text>
+        <View style={styles.priceRow}>
+          {formattedOldPrice != null && (
+            <Text style={[styles.oldPrice, { color: hintColor }]}>
+              {formattedOldPrice}
+            </Text>
+          )}
+          <Text style={[styles.price, { color: tintColor }]}>{formattedPrice}</Text>
+        </View>
       </View>
     </Pressable>
   );
@@ -74,6 +76,7 @@ export function OfferCard({
 const styles = StyleSheet.create({
   card: {
     flex: 1,
+    flexDirection: "column",
     borderRadius: Tokens.radius.md,
     overflow: "hidden",
     minWidth: 0,
@@ -83,26 +86,34 @@ const styles = StyleSheet.create({
     width: OFFER_IMAGE_SIZE,
     height: OFFER_IMAGE_SIZE,
   },
+  content: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "space-between",
+    minHeight: 0,
+    paddingHorizontal: Tokens.spacing.md,
+  },
   name: {
-    fontSize: Tokens.typography.body,
+    fontSize: 14,
     fontWeight: Tokens.typography.fontWeight.semibold,
-    paddingHorizontal: Tokens.spacing.sm,
+    textAlign: "center",
     paddingTop: Tokens.spacing.xs,
     paddingBottom: Tokens.spacing.xs,
   },
   priceRow: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "center",
     gap: Tokens.spacing.sm,
-    paddingHorizontal: Tokens.spacing.sm,
+    paddingTop: Tokens.spacing.xs,
     paddingBottom: Tokens.spacing.sm,
   },
   oldPrice: {
-    fontSize: Tokens.typography.body,
+    fontSize: 14,
     textDecorationLine: "line-through",
   },
   price: {
-    fontSize: Tokens.typography.body,
+    fontSize: 14,
     fontWeight: Tokens.typography.fontWeight.bold,
   },
 });

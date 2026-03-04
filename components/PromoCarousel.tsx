@@ -18,7 +18,7 @@ const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_MARGIN = Tokens.spacing.md;
 const CARD_WIDTH = SCREEN_WIDTH - CARD_MARGIN * 2;
 const CARD_HEIGHT = 270;
-const AUTO_SCROLL_INTERVAL_MS = 5500;
+const AUTO_SCROLL_INTERVAL_MS = 5000;
 
 export interface PromoCarouselProps {
   items: ImageSourcePropType[];
