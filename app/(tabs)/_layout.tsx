@@ -61,12 +61,12 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="categories"
+        name="search"
         options={{
-          title: "Categorias",
+          title: "Busca",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "grid" : "grid-outline"}
+              name={focused ? "search" : "search-outline"}
               size={TAB_ICON_SIZE}
               color={color}
             />
