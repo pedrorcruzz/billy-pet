@@ -9,7 +9,31 @@ Documenta o design system do Billy Pet seguindo o **Template de Documentação: 
 
 ---
 
-## Template Obrigatório (adaptado para mobile)
+## Regra absoluta: 100% fiel ao código
+
+**Nada de inventar.** Documentar apenas o que existe no código. Se não houver:
+- Tela de Acessibilidade → escrever: "Ainda não implementada"
+- Lib X → escrever: "Não utiliza"
+- Recurso Y → escrever: "Não implementado"
+
+Não assumir, não inferir. Buscar no código e documentar o que encontrar.
+
+---
+
+## Workflow obrigatório (antes de escrever)
+
+1. **Escanear o código** — buscar em `app/`, `components/`, `constants/`:
+   - `useThemeColor`, `Colors.light`, `Colors.dark` → mapeamento de cores
+   - `Tokens.typography`, `fontSize`, `fontWeight` → tipografia
+   - `Tokens.spacing`, `padding`, `margin`, `gap`, `flex` → espaçamento
+   - `accessibilityRole`, `accessibilityLabel`, `accessibilityHint` → acessibilidade
+   - Formulários: `AuthInput`, `AuthHintBox`, `authUtils` (se existirem)
+2. **Ler** `constants/Tokens.ts`, `constants/Colors.ts` — valores atuais
+3. **Só então** gerar o documento com o que foi encontrado
+
+---
+
+## Template Obrigatório (estrutura — conteúdo vem do código)
 
 O documento gerado deve seguir esta estrutura. Gerar em `docs/design-system/vN.md` (v1, v2, v3...).
 
@@ -20,94 +44,86 @@ O documento gerado deve seguir esta estrutura. Gerar em `docs/design-system/vN.m
 | **1.1 Nome do Projeto** | Billy Pet |
 | **1.2 Padrão de Acessibilidade Adotado** | WCAG 2.2 Nível AA |
 | **1.3 Público-alvo** | Usuários de app mobile (iOS/Android) — pet shop, compra de produtos para pets |
-| **1.4 Responsável pela Acessibilidade** | Pedro Henrique Rosa Cruz |
+| **1.4 Responsável pela Acessibilidade** | Buscar em package.json, README ou config; se não houver: "Não definido" |
 
 ### 2. Checklist de Design Acessível (UI/UX)
 
+**Extrair do código** o que está implementado. Se não encontrar: "Não implementado" ou "Não verificado".
+
 | Item | Critério | Implementação Billy Pet |
 |------|----------|-------------------------|
-| **2.1 Contraste de Cores** | Texto normal: 4.5:1; texto grande/ícones: 3:1 | Cores em `Colors.ts`; validar com WebAIM Contrast Checker |
-| **2.2 Não uso da cor como único indicador** | Informações não dependem apenas da cor | Usar ícone + cor, texto + cor (ex: obrigatório com * e cor) |
-| **2.3 Fontes Legíveis** | Tamanho mínimo legível | Body 16px (`Tokens.typography.body`); headings 20→24→28 |
-| **2.4 Foco Visível** | Elementos interativos com indicador de foco | `accessibilityState`; área de toque mínima 48×48 |
-| **2.5 Hierarquia de Títulos** | Estrutura clara H1, H2, H3 | `Tokens.typography.h1`, `h2`, `h3` nos títulos |
+| **2.1 Contraste de Cores** | Texto 4.5:1; grande 3:1 | Listar onde cores são usadas; se não houver validação: "Não verificado" |
+| **2.2 Cor como único indicador** | Não depender só de cor | Buscar ícone+cor, texto+cor; se não houver: "Não implementado" |
+| **2.3 Fontes Legíveis** | Tamanho mínimo legível | Extrair fontSize de Tokens e componentes; listar valores reais |
+| **2.4 Foco Visível** | Indicador de foco | Buscar accessibilityState, touchTarget; se não houver: "Não implementado" |
+| **2.5 Hierarquia de Títulos** | H1, H2, H3 | Buscar uso de h1/h2/h3; se não houver: "Não implementado" |
 
-### 3. Checklist de Desenvolvimento (Mobile / React Native)
+### 3. Checklist de Desenvolvimento (Mobile)
 
-| Item | Critério Web (original) | Adaptação Mobile |
-|------|-------------------------|------------------|
-| **3.1 Componentes Semânticos** | HTML semântico (`<nav>`, `<main>`, `<button>`) | `accessibilityRole`: button, link, header, image; `accessibilityLabel` em elementos interativos |
-| **3.2 Navegação por Toque** | Navegação por teclado TAB | Gestos touch; ordem lógica de foco; `accessibilityOrder` quando necessário |
-| **3.3 Atributos ALT** | Imagens com alt descritivo | `accessibilityLabel` em `Image`; `accessibilityElementsHidden` para decorativas |
-| **3.4 Formulários Acessíveis** | Labels associados, mensagens de erro | Ver seção 7. Padrões de Formulário (extraídos do código) |
-| **3.5 ARIA / accessibilityProps** | aria-label quando necessário | `accessibilityLabel`, `accessibilityLabelledBy`, `accessibilityHint` |
-| **3.6 Botões/Links Descritivos** | Texto do link explica destino | `accessibilityLabel` descritivo; evitar "clique aqui" |
+**Extrair do código** — buscar `accessibilityRole`, `accessibilityLabel`, `accessibilityHint`, `accessibilityOrder`. Documentar o que existe; o que não existir: "Não implementado".
 
 ### 4. Conteúdo e Mídia
 
-| Item | Critério |
-|------|----------|
-| **4.1 Textos Simples** | Linguagem clara, evitar jargões |
-| **4.2 Legendas/Transcrição** | Vídeos com legendas; áudios com transcrição |
-| **4.3 Evitar Piscadas** | Elementos não piscam mais de 3 vezes por segundo |
+Documentar critérios; para implementação: buscar vídeos, áudios, animações no app. Se não houver: "Não aplicável" ou "Não utiliza".
 
-### 5. Ferramentas de Validação e Testes (Mobile)
+### 5. Ferramentas de Validação
 
-| Tipo | Ferramenta |
-|------|------------|
-| **5.1 Automático** | Android Accessibility Scanner; Xcode Accessibility Inspector |
-| **5.2 Manual** | Navegação completa por gestos; ordem de foco |
-| **5.3 Leitor de Tela** | TalkBack (Android), VoiceOver (iOS) |
-| **5.4 Simulador de Contraste** | WebAIM Contrast Checker; stiletest |
+Listar ferramentas mencionadas no projeto (README, docs, scripts). Se não houver: "Não documentado no projeto".
 
 ### 6. Declaração de Acessibilidade
 
-- **Publicação**: Tela ou seção "Acessibilidade" no app, com compromisso, nível de conformidade (WCAG 2.2 AA) e contato para feedback.
-- **Responsável**: Pedro Henrique Rosa Cruz
+- **Publicação**: Buscar tela/rota "Acessibilidade" ou "accessibility" em app/. Se não existir: "Ainda não implementada"
+- **Responsável**: Buscar em config; se não houver: "Não definido"
 
-### 7. Padrões de Formulário (extraídos do código)
+### 7. Padrões de Formulário
 
-**Obrigatório**: ao gerar o documento, **ler** `components/auth/AuthInput.tsx`, `components/auth/AuthHintBox.tsx` e `utils/authUtils.ts` para extrair os padrões reais implementados.
+**Só incluir se existir** AuthInput, AuthHintBox, authUtils. Extrair do código:
+- Campo obrigatório: como é indicado? (asterisco, cor, etc.)
+- Labels, erros, hints: como estão implementados?
+- Validação: listar funções e regras em authUtils
 
-| Item | Implementação Billy Pet |
-|------|-------------------------|
-| **Campo obrigatório** | Asterisco (*) ao lado do label; cor `error`; toque no * abre Alert "O asterisco indica que este campo é obrigatório"; `accessibilityLabel` "Campo obrigatório. Toque para mais informações." |
-| **Labels** | `accessibilityLabel` no TextInput com o nome do campo |
-| **Erros** | `accessibilityHint` com mensagem; texto de erro abaixo do input (cor `error`) |
-| **Hints** | AuthHintBox com regras; `accessibilityLabel` em cada item; AUTH_HINTS e REGISTER_HINTS em authUtils |
-| **Validação** | authUtils: validateName, validateUsername, validateEmail, validatePassword, validateConfirmPassword — mensagens em pt-BR |
+Se não houver formulários: "Não há componentes de formulário no projeto" ou "Ainda não implementado".
 
-**Regras de validação** (authUtils): nome ≥2 chars; usuário sem espaço, ≤20 chars, letras/números/_; senha ≥4 chars, 1 maiúscula, 1 símbolo; e-mail com @ e domínio.
+### 8. Mapeamento de Cores por Elemento
+
+**Extrair dinamicamente**: buscar todos os arquivos que usam `useThemeColor(...)` ou `Colors.light.X` / `Colors.dark.X`. Para cada uso encontrado, adicionar linha na tabela:
+
+| Elemento / Componente | Propriedade | Token Colors.ts | Hex (de Colors.ts) |
+|-----------------------|-------------|-----------------|---------------------|
+| ... | ... | ... | ... |
+
+Hex vem de `Colors.ts`. Só incluir linhas que existem no código.
+
+### 9. Padrões de Tipografia
+
+**Extrair dinamicamente**: buscar `fontSize`, `fontWeight`, `Tokens.typography` em todos os componentes. Montar tabela:
+
+| Uso | Token | Valor | Componente exemplo |
+|-----|-------|-------|-------------------|
+| ... | ... | ... | ... |
+
+Só incluir o que for encontrado no código.
+
+### 10. Espaçamento e Layout (flex)
+
+**Extrair dinamicamente**: buscar `Tokens.spacing`, `padding`, `margin`, `gap`, `flex` em todos os componentes. Montar tabela:
+
+| Padrão | Token / Valor | Onde é usado |
+|--------|---------------|--------------|
+| ... | ... | ... |
+
+Só incluir o que for encontrado no código.
 
 ---
 
-## Tokens (constants/Tokens.ts)
+## Tokens e Cores
 
-Manter estrutura de tokens. Cores em `Colors.ts`.
-
-```typescript
-export const Tokens = {
-  typography: { body: 16, h3: 20, h2: 24, h1: 28, fontWeight: { normal: '400', semibold: '600', bold: '700' } },
-  spacing: { xs: 4, sm: 8, md: 16, lg: 24, xl: 32 },
-  radius: { sm: 8, md: 12, lg: 16 },
-  touchTarget: 48, // min 48×48 (Apple 44, Android 48)
-} as const;
-```
-
----
-
-## Workflow
-
-1. **Ler o código** — `components/auth/AuthInput.tsx`, `AuthHintBox.tsx`, `utils/authUtils.ts` para extrair padrões de formulário
-2. **Criar ou atualizar Tokens.ts** — typography, spacing, radius, touchTarget
-3. **Gerar documento** em `docs/design-system/vN.md` seguindo o template (seções 1–7)
-4. **Incluir** tabela de tokens, paleta Colors.ts, seção 7 com padrões de formulário reais, checklist completo
+**Ler** `constants/Tokens.ts` e `constants/Colors.ts` — documentar os valores atuais. Não inventar valores.
 
 ---
 
 ## Regras
 
-- **Acessibilidade não é opcional**: integrar no fluxo de design e desenvolvimento
-- **Foco mobile**: WCAG 2.2 AA; TalkBack e VoiceOver
-- **Ferramentas**: Accessibility Inspector (Xcode), Android Accessibility Scanner, WebAIM Contrast Checker
-- **Arquivo final**: sempre em `docs/design-system/vN.md` (v1, v2, v3...)
+- **100% fiel**: documentar apenas o que existe; o que não existe: "Ainda não implementado", "Não utiliza", "Não definido"
+- **Dinâmico**: sempre escanear o código antes de gerar; nunca usar tabelas fixas ou valores inventados
+- **Arquivo final**: `docs/design-system/vN.md` (v1, v2, v3...)
