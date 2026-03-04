@@ -8,14 +8,15 @@ Billy Pet é um aplicativo de pet shop desenvolvido para a Faculdade CESMAC. Pro
 
 | Arquivo | Resumo |
 |---------|--------|
-| `architecture.md` | Cria arquivos novos, reorganiza código ou verifica arquitetura via frontend-specialist |
-| `auth-routes.md` | Cria ou modifica rotas com autenticação, proteção e fluxo de login via auth-routes-specialist |
-| `components.md` | Cria ou modifica componentes React Native seguindo o design system via frontend-specialist |
-| `doc-design-system.md` | Gera documentação completa do design system Billy Pet via design-system-documenter |
-| `git-commit.md` | Cria commits no padrão Conventional Commits via github-specialist |
-| `readme.md` | Cria ou atualiza o README do projeto via github-specialist |
-| `screen-workflow.md` | Cria, edita ou remove telas via frontend-specialist |
-| `test.md` | Cria ou debuga testes com Jest e Expo via testing-specialist |
+| `architecture.md` | frontend-specialist para criar arquivos, reorganizar, refatorar ou verificar arquitetura |
+| `auth-routes.md` | auth-routes-specialist para rotas com autenticação obrigatória, proteção e fluxo de login |
+| `code-review.md` | code-review-agent para análise de código, code review e entender o projeto |
+| `components.md` | frontend-specialist para criar ou modificar componentes React Native |
+| `doc-design-system.md` | design-system-documenter para documentação completa do design system |
+| `git-commit.md` | github-specialist para commits Conventional Commits e git push |
+| `readme.md` | github-specialist para criar ou atualizar o README do projeto |
+| `screen-workflow.md` | frontend-specialist para criar, editar ou remover telas |
+| `test.md` | testing-specialist para criar ou debugar testes Jest/Expo |
 
 ## Instalação e uso
 
