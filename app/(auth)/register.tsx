@@ -1,8 +1,8 @@
-import { Alert, Image, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Alert, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { router } from "expo-router";
 
-import { SignUpForm } from "@/components/auth";
+import { AuthLogo, SignUpForm } from "@/components/auth";
 import { useAuth } from "@/hooks/useAuth";
 import { Tokens } from "@/constants/Tokens";
 import { REGISTER_HINTS } from "@/utils/authUtils";
@@ -29,13 +29,7 @@ export default function RegisterScreen() {
       contentContainerStyle={styles.scrollContent}
       keyboardShouldPersistTaps="handled"
     >
-      <View style={styles.logoContainer}>
-        <Image
-          source={require("@/assets/images/splash-icon.png")}
-          style={styles.logo}
-          resizeMode="contain"
-          accessibilityLabel="Logo Billy Pet"
-        />
+      <AuthLogo marginBottom="md">
         <Pressable
           onPress={showRulesPopup}
           style={styles.rulesIcon}
@@ -44,7 +38,7 @@ export default function RegisterScreen() {
         >
           <Ionicons name="bulb-outline" size={28} color={tintColor} />
         </Pressable>
-      </View>
+      </AuthLogo>
       <View style={styles.formContainer}>
         <SignUpForm
           onGoToLogin={() => router.back()}
@@ -62,21 +56,11 @@ export default function RegisterScreen() {
   );
 }
 
-const LOGO_SIZE = 160;
-
 const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     padding: Tokens.spacing.lg,
     paddingTop: Tokens.spacing.xl * 2,
-  },
-  logoContainer: {
-    alignItems: "center",
-    marginBottom: Tokens.spacing.md,
-  },
-  logo: {
-    width: LOGO_SIZE,
-    height: LOGO_SIZE,
   },
   rulesIcon: {
     marginTop: Tokens.spacing.sm,

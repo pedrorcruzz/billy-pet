@@ -1,7 +1,7 @@
-import { Image, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { router } from "expo-router";
 
-import { LoginForm, SocialLoginButtons } from "@/components/auth";
+import { AuthLogo, LoginForm, SocialLoginButtons } from "@/components/auth";
 import { Text, useThemeColor } from "@/components/Themed";
 import { useAuth } from "@/hooks/useAuth";
 import { authService } from "@/services/authService";
@@ -18,14 +18,7 @@ export default function LoginScreen() {
       contentContainerStyle={styles.scrollContent}
       keyboardShouldPersistTaps="handled"
     >
-      <View style={styles.logoContainer}>
-        <Image
-          source={require("@/assets/images/splash-icon.png")}
-          style={styles.logo}
-          resizeMode="contain"
-          accessibilityLabel="Logo Billy Pet"
-        />
-      </View>
+      <AuthLogo />
       <View style={styles.formContainer}>
         <LoginForm
           onForgotPassword={() => router.push("/(auth)/forgot-password")}
@@ -62,22 +55,12 @@ export default function LoginScreen() {
   );
 }
 
-const LOGO_SIZE = 160;
-
 const styles = StyleSheet.create({
   scrollContent: {
     flexGrow: 1,
     padding: Tokens.spacing.lg,
     paddingTop: Tokens.spacing.xl * 2,
     justifyContent: "space-between",
-  },
-  logoContainer: {
-    alignItems: "center",
-    marginBottom: Tokens.spacing.xl,
-  },
-  logo: {
-    width: LOGO_SIZE,
-    height: LOGO_SIZE,
   },
   formContainer: {
     flex: 1,

@@ -1,5 +1,6 @@
 export { AuthInput } from './AuthInput';
 export { AuthHintBox } from './AuthHintBox';
+export { AuthLogo } from './AuthLogo';
 export { LoginForm } from './LoginForm';
 export { SignUpForm } from './SignUpForm';
 export { SocialLoginButtons } from './SocialLoginButtons';
