@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 import { Text, useThemeColor } from "@/components/Themed";
 import { Tokens } from "@/constants/Tokens";
@@ -14,7 +13,7 @@ export default function SearchScreen() {
   const borderColor = useThemeColor("inputBorder");
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor }]} edges={["top", "left", "right"]}>
+    <View style={[styles.container, { backgroundColor }]}>
       <View style={[styles.searchBar, { borderColor }]}>
         <Ionicons
           name="search"
@@ -39,7 +38,7 @@ export default function SearchScreen() {
             : "Digite para buscar ração, acessórios, medicamentos..."}
         </Text>
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
