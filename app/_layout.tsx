@@ -9,6 +9,15 @@ import "react-native-reanimated";
 
 import { AuthProvider } from "@/contexts/AuthContext";
 import { useAuth } from "@/hooks/useAuth";
+import Colors from "@/constants/Colors";
+
+const AppTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: Colors.light.background,
+  },
+};
 
 export { ErrorBoundary } from "expo-router";
 
@@ -43,7 +52,7 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={DefaultTheme}>
+    <ThemeProvider value={AppTheme}>
       <AuthProvider>
         <RootLayoutNav />
       </AuthProvider>

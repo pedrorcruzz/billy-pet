@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
+import Colors from '@/constants/Colors';
 import { Text, View, useThemeColor } from '@/components/Themed';
 
 export default function ModalScreen() {
@@ -21,7 +22,7 @@ export default function ModalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "transparent",
+    backgroundColor: Colors.light.background,
   },
   content: {
     flex: 1,

@@ -36,7 +36,7 @@ const tabBarStyle = {
 export default function TabLayout() {
   return (
     <SafeAreaView
-      style={{ flex: 1, backgroundColor: "transparent" }}
+      style={{ flex: 1, backgroundColor: Colors.light.background }}
       edges={["top", "left", "right"]}
     >
       <Tabs
