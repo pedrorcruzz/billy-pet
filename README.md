@@ -9,7 +9,7 @@ Billy Pet é um aplicativo de pet shop desenvolvido para a Faculdade CESMAC. Pro
 | | | |
 |:---:|:---:|:---:|
 | <p align="center"><img src="assets/github/tela-login.png" width="200" alt="Tela de login" /></p> | <p align="center"><img src="assets/github/tela-cadastro.png" width="200" alt="Tela de cadastro" /></p> | <p align="center"><img src="assets/github/tela-carrosel1.png" width="200" alt="Carrossel 1" /></p> |
-| <p align="center"><img src="assets/github/tela-carrosel2.png" width="200" alt="Carrossel 2" /></p> | <p align="center"><img src="assets/github/tela-ofertas.png" width="200" alt="Tela de ofertas" /></p> | <p align="center"><img src="assets/github/tela-teste.png" width="200" alt="Tela de teste" /></p> |
+| <p align="center"><img src="assets/github/tela-carrosel2.png" width="200" alt="Carrossel 2" /></p> | <p align="center"><img src="assets/github/tela-ofertas.png" width="200" alt="Tela de ofertas" /></p> | |
 
 ## Comandos disponíveis
 
