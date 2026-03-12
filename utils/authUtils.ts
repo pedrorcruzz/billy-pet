@@ -1,7 +1,56 @@
+import { z } from "zod";
+
 const USERNAME_REGEX = /^[a-zA-Z0-9_]+$/;
 const UPPERCASE_REGEX = /[A-Z]/;
 const SYMBOL_REGEX = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/;
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const nameSchema = z
+  .string()
+  .trim()
+  .min(1, "Nome é obrigatório")
+  .min(2, "Nome deve ter pelo menos 2 caracteres");
+
+const usernameSchema = z
+  .string()
+  .trim()
+  .min(1, "Usuário é obrigatório")
+  .max(20, "Usuário não pode passar de 20 caracteres")
+  .refine((value) => !value.includes(" "), {
+    message: "Usuário não pode conter espaço",
+  })
+  .refine((value) => USERNAME_REGEX.test(value), {
+    message: "Use apenas letras, números e _",
+  });
+
+const passwordSchema = z
+  .string()
+  .min(1, "Senha é obrigatória")
+  .min(4, "Senha deve ter no mínimo 4 caracteres")
+  .refine((value) => UPPERCASE_REGEX.test(value), {
+    message: "Senha deve ter pelo menos 1 letra maiúscula",
+  })
+  .refine((value) => SYMBOL_REGEX.test(value), {
+    message: "Senha deve ter pelo menos 1 símbolo (!@#$% etc.)",
+  });
+
+const emailSchema = z
+  .string()
+  .trim()
+  .min(1, "E-mail é obrigatório")
+  .refine((value) => EMAIL_REGEX.test(value), {
+    message:
+      "E-mail inválido. Deve conter @ e domínio, ex: usuario@gmail.com",
+  });
+
+const emailOrUserSchema = z
+  .string()
+  .trim()
+  .min(1, "E-mail ou usuário é obrigatório");
+
+const passwordRequiredSchema = z
+  .string()
+  .min(1, "Senha é obrigatória");
 
 export const AUTH_HINTS = {
   username:
@@ -19,48 +68,63 @@ export const REGISTER_HINTS = {
 } as const;
 
 export function validateName(value: string): string | null {
-  if (!value.trim()) return 'Nome é obrigatório';
-  if (value.trim().length < 2) return 'Nome deve ter pelo menos 2 caracteres';
-  return null;
+  const result = nameSchema.safeParse(value);
+  if (result.success) return null;
+  return result.error.issues[0]?.message ?? null;
 }
 
 export function validateUsername(value: string): string | null {
-  if (!value.trim()) return 'Usuário é obrigatório';
-  if (value.includes(' ')) return 'Usuário não pode conter espaço';
-  if (value.length > 20) return 'Usuário não pode passar de 20 caracteres';
-  if (!USERNAME_REGEX.test(value)) return 'Use apenas letras, números e _';
-  return null;
+  const result = usernameSchema.safeParse(value);
+  if (result.success) return null;
+  return result.error.issues[0]?.message ?? null;
 }
 
 export function validatePassword(value: string): string | null {
-  if (!value) return 'Senha é obrigatória';
-  if (value.length < 4) return 'Senha deve ter no mínimo 4 caracteres';
-  if (!UPPERCASE_REGEX.test(value)) return 'Senha deve ter pelo menos 1 letra maiúscula';
-  if (!SYMBOL_REGEX.test(value)) return 'Senha deve ter pelo menos 1 símbolo (!@#$% etc.)';
-  return null;
+  const result = passwordSchema.safeParse(value);
+  if (result.success) return null;
+  return result.error.issues[0]?.message ?? null;
 }
 
 export function validateEmail(value: string): string | null {
-  if (!value.trim()) return 'E-mail é obrigatório';
-  if (!EMAIL_REGEX.test(value))
-    return 'E-mail inválido. Deve conter @ e domínio, ex: usuario@gmail.com';
-  return null;
+  const result = emailSchema.safeParse(value);
+  if (result.success) return null;
+  return result.error.issues[0]?.message ?? null;
 }
 
 export function validateEmailOrUser(value: string): string | null {
-  if (!value.trim()) return 'E-mail ou usuário é obrigatório';
-  return null;
+  const result = emailOrUserSchema.safeParse(value);
+  if (result.success) return null;
+  return result.error.issues[0]?.message ?? null;
 }
 
 export function validatePasswordRequired(value: string): string | null {
-  if (!value) return 'Senha é obrigatória';
-  return null;
+  const result = passwordRequiredSchema.safeParse(value);
+  if (result.success) return null;
+  return result.error.issues[0]?.message ?? null;
 }
 
 export function validateConfirmPassword(
   password: string,
-  confirmValue: string
+  confirmValue: string,
 ): string | null {
   if (!confirmValue) return null;
-  return password !== confirmValue ? 'As senhas não conferem' : null;
+
+  const result = z
+    .object({
+      password: passwordSchema,
+      confirmPassword: z.string(),
+    })
+    .refine(
+      (data) => data.password === data.confirmPassword,
+      { path: ["confirmPassword"], message: "As senhas não conferem" },
+    )
+    .safeParse({ password, confirmPassword: confirmValue });
+
+  if (result.success) return null;
+
+  const confirmIssue = result.error.issues.find(
+    (issue) => issue.path[0] === "confirmPassword",
+  );
+
+  return confirmIssue?.message ?? null;
 }
