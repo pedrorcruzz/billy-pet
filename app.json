@@ -34,6 +34,19 @@
       "expo-font",
       "expo-web-browser",
       [
+        "expo-image-picker",
+        {
+          "photosPermission": "O Billy Pet precisa acessar sua galeria para você escolher uma foto de perfil.",
+          "cameraPermission": "O Billy Pet precisa acessar sua câmera para você tirar uma foto de perfil."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "O Billy Pet usa sua localização para mostrar seu endereço de entrega e acompanhar o motoboy."
+        }
+      ],
+      [
         "expo-splash-screen",
         {
           "image": "./assets/images/splash-icon.png",

@@ -39,3 +39,6 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# docs internas (não versionar)
+docs/recursos-nativos.md
