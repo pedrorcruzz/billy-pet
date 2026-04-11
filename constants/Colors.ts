@@ -11,6 +11,10 @@ const graySeparator = "#EEEEEE";
 const grayCarouselDot = "#B3B3B3";
 const redError = "#B91C1C";
 const shadowBlack = "#000";
+const greenSuccess = "#2E7D32";
+const orangeWarning = "#B26A00";
+const overlayDark = "rgba(0, 0, 0, 0.55)";
+const whiteTranslucent = "rgba(255, 255, 255, 0.4)";
 
 export default {
   light: {
@@ -39,5 +43,15 @@ export default {
     cardBorderSubtle: grayBorderSubtle,
     /** Skeleton loading */
     skeletonBase: graySkeleton,
+    /** Verde de sucesso (entrega concluída, confirmação) */
+    success: greenSuccess,
+    /** Laranja de aviso (pedido em preparo) */
+    warning: orangeWarning,
+    /** Branco usado em ícones sobre fundos escuros */
+    onDark: whiteLight,
+    /** Overlay escuro semi-transparente para modais */
+    overlay: overlayDark,
+    /** Branco semi-transparente (chip do cartão de débito) */
+    cardChipOverlay: whiteTranslucent,
   },
 };
