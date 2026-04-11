@@ -60,7 +60,13 @@ export function Button({
           <LoadingSpinner size="small" color={onButtonPrimaryColor} inline />
         </View>
       ) : (
-        <Text style={[styles.buttonText, { color }]}>{title}</Text>
+        <Text
+          style={[styles.buttonText, { color }]}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+        >
+          {title}
+        </Text>
       )}
     </Pressable>
   );
@@ -72,7 +78,7 @@ const styles = StyleSheet.create({
     borderRadius: Tokens.radius.lg,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: Tokens.spacing.lg,
+    paddingHorizontal: Tokens.spacing.md,
   },
   buttonText: {
     fontSize: Tokens.typography.body,

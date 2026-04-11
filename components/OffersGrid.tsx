@@ -23,6 +23,8 @@ export interface OffersGridProps {
   viewMoreLabel?: string;
   /** Callback ao clicar em um card */
   onOfferPress?: (offer: Offer) => void;
+  /** Callback ao clicar no botão "+" do card (adicionar ao carrinho) */
+  onOfferAdd?: (offer: Offer) => void;
 }
 
 export function OffersGrid({
@@ -30,6 +32,7 @@ export function OffersGrid({
   onViewMore,
   viewMoreLabel = "Ver mais ofertas",
   onOfferPress,
+  onOfferAdd,
 }: OffersGridProps) {
   const textColor = useThemeColor("text");
   const displayedOffers = offers.slice(0, 4);
@@ -48,6 +51,7 @@ export function OffersGrid({
             oldPrice={offer.oldPrice}
             source={offer.source}
             onPress={onOfferPress ? () => onOfferPress(offer) : undefined}
+            onAdd={onOfferAdd ? () => onOfferAdd(offer) : undefined}
             accessibilityLabel={`${offer.name}, ${formatPrice(offer.price)}`}
           />
         </View>
