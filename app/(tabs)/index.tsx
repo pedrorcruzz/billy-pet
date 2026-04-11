@@ -14,6 +14,8 @@ import {
 import { Text, useThemeColor } from "@/components/Themed";
 import Colors from "@/constants/Colors";
 import { Tokens } from "@/constants/Tokens";
+import { useCart } from "@/hooks/useCart";
+import { productService } from "@/services/productService";
 
 const PROMO_CARDS = [
   require("@/assets/cards/card-1.png"),
@@ -29,50 +31,29 @@ const CATEGORIES = [
   { title: "Higiene", source: require("@/assets/categories/cama.png") },
 ];
 
-const OFFERS: Offer[] = [
-  {
-    id: "1",
-    name: "Ração Premium para Gatos",
-    price: 89.9,
-    oldPrice: 119.9,
-    source: require("@/assets/offers/racao.png"),
-  },
-  {
-    id: "2",
-    name: "Osso Natural para Cães",
-    price: 24.9,
-    oldPrice: 34.9,
-    source: require("@/assets/offers/osso.png"),
-  },
-  {
-    id: "3",
-    name: "Brinquedo Interativo",
-    price: 39.9,
-    oldPrice: 49.9,
-    source: require("@/assets/offers/gato1.png"),
-  },
-  {
-    id: "4",
-    name: "Cama Confortável",
-    price: 129.9,
-    oldPrice: 159.9,
-    source: require("@/assets/offers/gato2.png"),
-  },
-  {
-    id: "5",
-    name: "Petisco Premium",
-    price: 19.9,
-    oldPrice: 24.9,
-    source: require("@/assets/offers/racao.png"),
-  },
-];
+const OFFERS: Offer[] = productService
+  .listProducts()
+  .filter((product) => product.oldPrice != null)
+  .map((product) => ({
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    oldPrice: product.oldPrice,
+    source: product.source,
+  }));
 
-const LOADING_DELAY_MS = 2500;
+const LOADING_DELAY_MS = 800;
 
 export default function HomeScreen() {
   const router = useRouter();
   const separatorColor = useThemeColor("separator");
+  const { addItem } = useCart();
   const [isLoading, setIsLoading] = useState(true);
+
+  const handleAddOffer = (offer: Offer) => {
+    const product = productService.findById(offer.id);
+    if (product) addItem(product);
+  };
 
   useEffect(() => {
     const id = setTimeout(() => setIsLoading(false), LOADING_DELAY_MS);
@@ -128,6 +109,8 @@ export default function HomeScreen() {
           <OffersGrid
             offers={OFFERS}
             onViewMore={() => router.push("/(tabs)/search")}
+            onOfferAdd={handleAddOffer}
+            onOfferPress={handleAddOffer}
           />
         </>
       )}

@@ -1,10 +1,14 @@
 import React from "react";
 import { Tabs } from "expo-router";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
+import { CartToast } from "@/components/CartToast";
+import { Text } from "@/components/Themed";
 import Colors from "@/constants/Colors";
+import { Tokens } from "@/constants/Tokens";
+import { useCart } from "@/hooks/useCart";
 
 const TAB_ICON_SIZE = 25;
 const CART_ICON_SIZE = 56;
@@ -25,7 +29,7 @@ const tabBarStyle = {
   height: TAB_BAR_HEIGHT,
   borderRadius: TAB_BAR_HEIGHT / 2,
   backgroundColor: Colors.light.background,
-  shadowColor: "#000",
+  shadowColor: Colors.light.shadow,
   shadowOffset: { width: 0, height: 4 },
   shadowOpacity: 0.15,
   shadowRadius: 12,
@@ -33,13 +37,36 @@ const tabBarStyle = {
   paddingBottom: 0,
 };
 
+function CartTabIcon({ focused }: { focused: boolean }) {
+  const { totalItems } = useCart();
+  return (
+    <View>
+      <View style={cartIconCircleStyle}>
+        <Ionicons
+          name={focused ? "cart" : "cart-outline"}
+          size={TAB_ICON_SIZE}
+          color={Colors.light.onTint}
+        />
+      </View>
+      {totalItems > 0 && (
+        <View style={[styles.badge, { backgroundColor: Colors.light.card }]}>
+          <Text style={[styles.badgeText, { color: Colors.light.onTint }]}>
+            {totalItems > 99 ? "99+" : totalItems}
+          </Text>
+        </View>
+      )}
+    </View>
+  );
+}
+
 export default function TabLayout() {
   return (
-    <SafeAreaView
-      style={{ flex: 1, backgroundColor: Colors.light.background }}
-      edges={["top", "left", "right"]}
-    >
-      <Tabs
+    <View style={{ flex: 1, backgroundColor: Colors.light.background }}>
+      <SafeAreaView
+        style={{ flex: 1, backgroundColor: Colors.light.background }}
+        edges={["top", "left", "right"]}
+      >
+        <Tabs
         screenOptions={{
           headerShown: false,
           tabBarShowLabel: true,
@@ -89,15 +116,7 @@ export default function TabLayout() {
           name="cart"
           options={{
             title: "Carrinho",
-            tabBarIcon: ({ focused }) => (
-              <View style={cartIconCircleStyle}>
-                <Ionicons
-                  name={focused ? "cart" : "cart-outline"}
-                  size={TAB_ICON_SIZE}
-                  color={Colors.light.onTint}
-                />
-              </View>
-            ),
+            tabBarIcon: ({ focused }) => <CartTabIcon focused={focused} />,
           }}
         />
         <Tabs.Screen
@@ -126,7 +145,30 @@ export default function TabLayout() {
             ),
           }}
         />
-      </Tabs>
-    </SafeAreaView>
+        </Tabs>
+      </SafeAreaView>
+
+      <CartToast />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  badge: {
+    position: "absolute",
+    top: -14,
+    right: -8,
+    minWidth: 22,
+    height: 22,
+    borderRadius: 11,
+    paddingHorizontal: 6,
+    justifyContent: "center",
+    alignItems: "center",
+    borderWidth: 2,
+    borderColor: Colors.light.background,
+  },
+  badgeText: {
+    fontSize: 11,
+    fontWeight: Tokens.typography.fontWeight.bold,
+  },
+});

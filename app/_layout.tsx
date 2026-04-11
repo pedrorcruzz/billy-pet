@@ -8,6 +8,9 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { AuthProvider } from "@/contexts/AuthContext";
+import { CartProvider } from "@/contexts/CartContext";
+import { LocationProvider } from "@/contexts/LocationContext";
+import { OrdersProvider } from "@/contexts/OrdersContext";
 import { useAuth } from "@/hooks/useAuth";
 import Colors from "@/constants/Colors";
 
@@ -54,7 +57,13 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={AppTheme}>
       <AuthProvider>
-        <RootLayoutNav />
+        <LocationProvider>
+          <OrdersProvider>
+            <CartProvider>
+              <RootLayoutNav />
+            </CartProvider>
+          </OrdersProvider>
+        </LocationProvider>
       </AuthProvider>
     </ThemeProvider>
   );
@@ -87,6 +96,8 @@ function RootLayoutNav() {
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="addresses" options={{ headerShown: false }} />
+        <Stack.Screen name="checkout" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: "modal" }} />
       </Stack>
     </>
