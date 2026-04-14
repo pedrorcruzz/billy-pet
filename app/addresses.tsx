@@ -45,7 +45,7 @@ const REQUIRED_FIELDS: (keyof FormData)[] = [
 
 export default function AddressesScreen() {
   const {
-    location,
+    // location,
     loading,
     error,
     requestLocation,
@@ -53,7 +53,9 @@ export default function AddressesScreen() {
     saveAddress,
   } = useLocation();
 
-  const [formData, setFormData] = useState<FormData>(savedAddress ?? EMPTY_FORM);
+  const [formData, setFormData] = useState<FormData>(
+    savedAddress ?? EMPTY_FORM,
+  );
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
     {},
   );
@@ -64,7 +66,7 @@ export default function AddressesScreen() {
   const textColor = useThemeColor("text");
   const hintColor = useThemeColor("hint");
   const tintColor = useThemeColor("tint");
-  const onTintColor = useThemeColor("onTint");
+  // const onTintColor = useThemeColor("onTint");
   const errorColor = useThemeColor("error");
   const separatorColor = useThemeColor("separator");
   const inputBorderColor = useThemeColor("inputBorder");
@@ -116,8 +118,7 @@ export default function AddressesScreen() {
     setSuccessVisible(true);
   };
 
-  const showMap =
-    formData.latitude != null && formData.longitude != null;
+  const showMap = formData.latitude != null && formData.longitude != null;
 
   return (
     <SafeAreaView
@@ -184,20 +185,14 @@ export default function AddressesScreen() {
             ) : (
               <Ionicons name="locate" size={20} color={tintColor} />
             )}
-            <Text
-              style={[styles.locationButtonText, { color: tintColor }]}
-            >
+            <Text style={[styles.locationButtonText, { color: tintColor }]}>
               {loading ? "Localizando..." : "Usar minha localização atual"}
             </Text>
           </Pressable>
 
           {error && (
             <View style={[styles.errorBanner, { borderColor: errorColor }]}>
-              <Ionicons
-                name="alert-circle"
-                size={20}
-                color={errorColor}
-              />
+              <Ionicons name="alert-circle" size={20} color={errorColor} />
               <Text style={[styles.errorBannerText, { color: errorColor }]}>
                 {error}
               </Text>

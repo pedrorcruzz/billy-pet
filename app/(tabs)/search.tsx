@@ -46,7 +46,7 @@ export default function SearchScreen() {
     : ALL_PRODUCTS;
 
   const sectionTitle = selectedCategory
-    ? CATEGORIES.find((c) => c.id === selectedCategory)?.title ?? "Produtos"
+    ? (CATEGORIES.find((c) => c.id === selectedCategory)?.title ?? "Produtos")
     : "Mais buscados";
 
   return (
@@ -214,7 +214,12 @@ function SuggestionsList({
         contentContainerStyle={styles.suggestionsListContent}
         keyboardShouldPersistTaps="handled"
         ItemSeparatorComponent={() => (
-          <View style={[styles.suggestionSeparator, { backgroundColor: separatorColor }]} />
+          <View
+            style={[
+              styles.suggestionSeparator,
+              { backgroundColor: separatorColor },
+            ]}
+          />
         )}
         renderItem={({ item }) => (
           <SuggestionRow
@@ -277,7 +282,9 @@ function SuggestionRow({
           </Text>
         </View>
       </View>
-      <View style={[styles.suggestionAddButton, { backgroundColor: tintColor }]}>
+      <View
+        style={[styles.suggestionAddButton, { backgroundColor: tintColor }]}
+      >
         <Ionicons name="add" size={20} color={onTintColor} />
       </View>
     </Pressable>

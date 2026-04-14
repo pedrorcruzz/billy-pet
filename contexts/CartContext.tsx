@@ -23,6 +23,7 @@ export interface CartContextValue {
   increment: (productId: string) => void;
   decrement: (productId: string) => void;
   clear: () => void;
+  clearLastAdded: () => void;
 }
 
 const CartContext = createContext<CartContextValue | null>(null);
@@ -79,6 +80,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   const clear = useCallback(() => {
     setItems([]);
+    setLastAdded(null);
+  }, []);
+
+  const clearLastAdded = useCallback(() => {
+    setLastAdded(null);
   }, []);
 
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -99,6 +105,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         increment,
         decrement,
         clear,
+        clearLastAdded,
       }}
     >
       {children}

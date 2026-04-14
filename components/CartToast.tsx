@@ -11,7 +11,7 @@ import { useCart } from "@/hooks/useCart";
 const TOAST_VISIBLE_MS = 1800;
 
 export function CartToast() {
-  const { lastAdded } = useCart();
+  const { lastAdded, clearLastAdded } = useCart();
   const insets = useSafeAreaInsets();
   const translateY = useRef(new Animated.Value(-120)).current;
   const opacity = useRef(new Animated.Value(0)).current;
@@ -59,7 +59,9 @@ export function CartToast() {
           easing: Easing.in(Easing.ease),
           useNativeDriver: true,
         }),
-      ]).start();
+      ]).start(() => {
+        clearLastAdded();
+      });
     }, TOAST_VISIBLE_MS);
 
     return () => {
